@@ -1,0 +1,28 @@
+imax 1
+jmax *
+ikmax *
+-------------------------------------------------------------------------------------------------------
+shapes signal     Cat0      inputData/fitPlotFiles/HToUpsilonPhotonSignalAndBackgroundFit/HToUpsilonPhotonSignalAndBackgroundFit_workspace_Cat0.root w:signal_model
+shapes bckg       Cat0      inputData/fitPlotFiles/HToUpsilonPhotonSignalAndBackgroundFit/HToUpsilonPhotonSignalAndBackgroundFit_workspace_Cat0.root w:Bernstein
+shapes pbckg      Cat0      inputData/fitPlotFiles/HToUpsilonPhotonSignalAndBackgroundFit/HToUpsilonPhotonSignalAndBackgroundFit_workspace_Cat0.root w:PeakingBackground_cb
+shapes data_obs   Cat0      inputData/fitPlotFiles/HToUpsilonPhotonSignalAndBackgroundFit/HToUpsilonPhotonSignalAndBackgroundFit_workspace_Cat0.root w:data_obs
+--------------------------------------------------------------------------------------------------------
+bin Cat0
+observation -1
+--------------------------------------------------------------------------------------------------------
+bin             Cat0      Cat0    Cat0
+process         signal    bckg    pbckg
+process         0         1       2
+rate            8.82827320375e-05  259  0.793805429643
+---------------------------------------------------------------------------------------------------------
+lumi      lnN   1.025      -   1.025    
+HZ_xs_sc   lnN   0.933/1.046    -   0.933/1.046
+HZ_xs_pdf  lnN   1.032    -   1.032
+br_peak   lnN   -          -   1.060
+pu_r      lnN   1.00641149156     -   1.00175978988
+trg       lnN   1.06277716473     -   1.06000153766
+muon_id   lnN   1.04402960024     -   1.04389875008
+ph_id     lnN   1.01202721357     -   1.01199926982
+ele_veto  lnN   1.01042324584     -   1.01044466833
+#mean_HZ   param 125 1.01
+#sigma_cb     param 3 1.0493

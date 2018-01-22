@@ -1,0 +1,24 @@
+[#0] WARNING:Eval -- RooStatsUtils::MakeNuisancePdf - no constraints found on nuisance parameters in the input model
+[#0] WARNING:Eval -- RooStatsUtils::MakeNuisancePdf - no constraints found on nuisance parameters in the input model
+	CLs = 0.0183704 +/- 0.0133356
+	CLs = 0.0391034 +/- 0.0137355
+	CLs = 0.0394074 +/- 0.0110931
+	CLs = 0.034 +/- 0.00861677
+	CLs = 0.0316025 +/- 0.00735998
+	CLs = 0.0353003 +/- 0.00697327
+	CLs = 0.0376371 +/- 0.00666762
+	CLs = 0.0336964 +/- 0.00577459
+	CLs = 0.0338497 +/- 0.00551378
+	CLs = 0.0322753 +/- 0.0051249
+	CLs      = 0.0322753 +/- 0.0051249
+	CLb      = 0.266458 +/- 0.0123766
+	CLsplusb = 0.0086 +/- 0.00130584
+
+
+ -- HybridNew, before fit -- 
+Limit: r < 11.9689 +/- 0.84423 [11.5577, 12.4452]
+Fit to 3 points: 11.8804 +/- 0.0880014
+
+ -- Hybrid New -- 
+Limit: r < 11.8804 +/- 0.0880014 @ 95% CL
+Done in 0.02 min (cpu), 1.70 min (real)

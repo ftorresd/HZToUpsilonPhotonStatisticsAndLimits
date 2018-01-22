@@ -1,0 +1,27 @@
+imax 1
+jmax *
+ikmax *
+-------------------------------------------------------------------------------------------------------
+shapes signal     Cat0      inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:dcball
+shapes bckg       Cat0      inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:Bernstein
+shapes pbckg      Cat0      inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:dcballPeakingBackground
+shapes data_obs   Cat0      inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:data_obs
+--------------------------------------------------------------------------------------------------------
+bin Cat0
+observation -1
+--------------------------------------------------------------------------------------------------------
+bin             Cat0      Cat0    Cat0
+process         signal    bckg    pbckg
+process         0         1       2
+rate            1.61500433442  385  3.95442391955
+---------------------------------------------------------------------------------------------------------
+lumi      lnN   1.025      -   1.025    
+HZ_xs_sc   lnN   1.035    -   1.050
+HZ_xs_pdf  lnN   1.073    -   1.050
+pu_r      lnN   1.00831389301     -   1.01271126386
+trg       lnN   1.04321757257     -   1.04867484214
+muon_id   lnN   1.04604611933     -   1.04566215024
+ph_id     lnN   1.01113224436     -   1.01089444825
+ele_veto  lnN   1.01052714827     -   1.01005400495
+#mean_HZ   param 125 1.01
+#sigma_cb     param 3 1.0493

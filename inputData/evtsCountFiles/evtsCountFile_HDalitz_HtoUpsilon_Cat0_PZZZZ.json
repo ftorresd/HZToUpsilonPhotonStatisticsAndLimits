@@ -1,0 +1,16 @@
+{
+"sample" : "HDalitz",
+"analysisBranch" : "HtoUpsilon",
+"selCategory" : "Cat0",
+"systMaskYields" : "PZZZZ",
+"total" : 67.6012373860023,
+"trigger" : 36.8610750287377,
+"muon_presel" : 30.3601664693876,
+"muon_id" : 26.1028167477243,
+"photon_sel" : 20.923003780359,
+"deltaR_muon_to_photon" : 20.2098616543715,
+"deltaRPhi_quarkonia_to_photon" : 17.5566788651975,
+"quarkonia_mass_cut" : 0.846052257497966,
+"ratio_cuts" : 0.796610529673938,
+"hz_mass_cut" : 0.793232933180281
+}

@@ -1,0 +1,16 @@
+{
+"sample" : "ZGTo2MuG_MMuMu-2To15",
+"analysisBranch" : "ZtoJPsi",
+"selCategory" : "Cat2",
+"systMaskYields" : "ZZZMZ",
+"total" : 2864.9146126141,
+"trigger" : 1685.0989574499,
+"muon_presel" : 1313.60565292429,
+"muon_id" : 1164.9640835597,
+"photon_sel" : 877.269706968205,
+"deltaR_muon_to_photon" : 873.719049348593,
+"deltaRPhi_quarkonia_to_photon" : 842.645476776287,
+"quarkonia_mass_cut" : 4.64409936372364,
+"ratio_cuts" : 3.92368991394189,
+"hz_mass_cut" : 1.00967767407963
+}

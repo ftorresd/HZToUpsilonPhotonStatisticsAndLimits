@@ -1,0 +1,16 @@
+{
+"sample" : "HToUpsilon1SGamma",
+"analysisBranch" : "HtoUpsilon",
+"selCategory" : "Cat0",
+"systMaskYields" : "ZZZZZ",
+"total" : 0.000230483004266278,
+"trigger" : 0.000122454754807425,
+"muon_presel" : 9.58515098342535e-05,
+"muon_id" : 8.26328868298237e-05,
+"photon_sel" : 6.55047014525612e-05,
+"deltaR_muon_to_photon" : 6.32490191426892e-05,
+"deltaRPhi_quarkonia_to_photon" : 5.24403128469163e-05,
+"quarkonia_mass_cut" : 5.03730950255035e-05,
+"ratio_cuts" : 4.72161500274783e-05,
+"hz_mass_cut" : 4.71615346592781e-05
+}

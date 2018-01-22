@@ -1,0 +1,8 @@
+[#0] WARNING:Eval -- RooStatsUtils::MakeNuisancePdf - no constraints found on nuisance parameters in the input model
+[#0] WARNING:Eval -- RooStatsUtils::MakeNuisancePdf - no constraints found on nuisance parameters in the input model
+	CLs = 0.7595 +/- 0.100678
+	CLs      = 0.7595 +/- 0.100678
+	CLb      = 0.387097 +/- 0.0437416
+	CLsplusb = 0.294 +/- 0.0203747
+
+Done in 0.01 min (cpu), 0.13 min (real)

@@ -1,0 +1,332 @@
+{
+  "HtoUpsilon_Cat0": [
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HToUpsilon1SGamma", 
+      "Photon ID": 1.201513226286884, 
+      "Electron Veto": 1.0438595456268636, 
+      "Pileup": 0.7779332989316095, 
+      "Muon ID": 4.395150227534659, 
+      "Analysis Branch": "HtoUpsilonPhoton", 
+      "Trigger": 6.286345670947208
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HToUpsilon2SGamma", 
+      "Photon ID": 1.2014518449179483, 
+      "Electron Veto": 1.0414319684498003, 
+      "Pileup": 0.400332332571369, 
+      "Muon ID": 4.412018960349146, 
+      "Analysis Branch": "HtoUpsilonPhoton", 
+      "Trigger": 6.3675722231749585
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HToUpsilon3SGamma", 
+      "Photon ID": 1.2068273802879776, 
+      "Electron Veto": 1.0396749806160033, 
+      "Pileup": 0.6228933960933363, 
+      "Muon ID": 4.411812552256575, 
+      "Analysis Branch": "HtoUpsilonPhoton", 
+      "Trigger": 6.165613033359285
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HToUpsilonGamma", 
+      "Photon ID": 1.2027213569341932, 
+      "Electron Veto": 1.0423245839391673, 
+      "Pileup": 0.6411491559409055, 
+      "Muon ID": 4.402960024219568, 
+      "Analysis Branch": "HtoUpsilonPhoton", 
+      "Trigger": 6.277716472623271
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HDalitz", 
+      "Photon ID": 1.1999269822257637, 
+      "Electron Veto": 1.0444668330677649, 
+      "Pileup": 0.17597898794953815, 
+      "Muon ID": 4.389875008322099, 
+      "Analysis Branch": "HtoUpsilonPhoton", 
+      "Trigger": 6.000153766060045
+    }
+  ], 
+  "ZtoUpsilon_Cat3": [
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZToUpsilon1SGamma", 
+      "Photon ID": 1.0928564874158184, 
+      "Electron Veto": 0.4455696202532304, 
+      "Pileup": 1.5217156933429192, 
+      "Muon ID": 5.55121176352641, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 7.734621605467663
+    }, 
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZToUpsilon2SGamma", 
+      "Photon ID": 1.1219503174571794, 
+      "Electron Veto": 0.4455696202531522, 
+      "Pileup": 1.157051535997284, 
+      "Muon ID": 6.577714689530743, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 7.617310620823122
+    }, 
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZToUpsilon3SGamma", 
+      "Photon ID": 1.0654365389595615, 
+      "Electron Veto": 0.44556962025345753, 
+      "Pileup": 3.8758375620742256, 
+      "Muon ID": 5.717996089239093, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 7.315210473707938
+    }, 
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.0838476974930322, 
+      "Electron Veto": 0.44556962025323266, 
+      "Pileup": 1.2306379270644239, 
+      "Muon ID": 5.386025080775819, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 7.63922629038057
+    }
+  ], 
+  "ZtoUpsilon_Cat2": [
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZToUpsilon1SGamma", 
+      "Photon ID": 1.1290491049812283, 
+      "Electron Veto": 1.1974240289801177, 
+      "Pileup": 0.5329250846525592, 
+      "Muon ID": 4.422815155904638, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.5990249837024106
+    }, 
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZToUpsilon2SGamma", 
+      "Photon ID": 1.8754034100195784, 
+      "Electron Veto": 1.1974240289800253, 
+      "Pileup": 4.196772659763953, 
+      "Muon ID": 4.9485307116234685, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.6873650296094476
+    }, 
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZToUpsilon3SGamma", 
+      "Photon ID": 2.1331975651539024, 
+      "Electron Veto": 1.1974240289796858, 
+      "Pileup": 1.240865694077145, 
+      "Muon ID": 4.862412134842259, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.6038339267017405
+    }, 
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.0939315266744623, 
+      "Electron Veto": 1.197424028979857, 
+      "Pileup": 0.3880078628407822, 
+      "Muon ID": 4.234894241676821, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.734016413473197
+    }
+  ], 
+  "ZtoUpsilon_Cat1": [
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZToUpsilon1SGamma", 
+      "Photon ID": 1.125548462626675, 
+      "Electron Veto": 1.1974240289799678, 
+      "Pileup": 0.8654615376068153, 
+      "Muon ID": 4.238343463754675, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.5671532513790294
+    }, 
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZToUpsilon2SGamma", 
+      "Photon ID": 1.0881352232273005, 
+      "Electron Veto": 1.1974240289796692, 
+      "Pileup": 2.1503623252767166, 
+      "Muon ID": 4.783509066865952, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.5972046778520848
+    }, 
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZToUpsilon3SGamma", 
+      "Photon ID": 1.0755061148605358, 
+      "Electron Veto": 1.197424028979592, 
+      "Pileup": 0.6941336519945522, 
+      "Muon ID": 4.74192264231996, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.538670325047135
+    }, 
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.086127858366897, 
+      "Electron Veto": 1.197424028980751, 
+      "Pileup": 0.5525502098304078, 
+      "Muon ID": 4.179615154623721, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 3.5965441279006076
+    }
+  ], 
+  "ZtoUpsilon_Cat0": [
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZToUpsilon1SGamma", 
+      "Photon ID": 1.1205731112444186, 
+      "Electron Veto": 1.060751577285137, 
+      "Pileup": 0.8928584363937561, 
+      "Muon ID": 4.527976507878375, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 4.333525463328184
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZToUpsilon2SGamma", 
+      "Photon ID": 1.2678289788607309, 
+      "Electron Veto": 1.0156732037056022, 
+      "Pileup": 0.5274142100334586, 
+      "Muon ID": 5.2531871615749255, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 4.588654862766157
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZToUpsilon3SGamma", 
+      "Photon ID": 1.4137288708475173, 
+      "Electron Veto": 1.033983128312781, 
+      "Pileup": 1.5617467156017872, 
+      "Muon ID": 4.992883937614129, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 4.380601151677512
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.0878773540931481, 
+      "Electron Veto": 1.0327708224482506, 
+      "Pileup": 0.6536313833466616, 
+      "Muon ID": 4.459744453496837, 
+      "Analysis Branch": "ZtoUpsilonPhoton", 
+      "Trigger": 4.521492308640869
+    }
+  ], 
+  "ZtoJPsi_Cat2": [
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZToJPsiGamma", 
+      "Photon ID": 1.1075566955265093, 
+      "Electron Veto": 1.1974240289799039, 
+      "Pileup": 0.31456649930274344, 
+      "Muon ID": 4.469917221560872, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 3.56244231696349
+    }, 
+    {
+      "Category": "Cat2", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.101785669870222, 
+      "Electron Veto": 1.1974240289798772, 
+      "Pileup": 1.1233375371299008, 
+      "Muon ID": 4.461514194512775, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 3.7658515630056866
+    }
+  ], 
+  "ZtoJPsi_Cat1": [
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZToJPsiGamma", 
+      "Photon ID": 1.1192335162764986, 
+      "Electron Veto": 1.1974240289799032, 
+      "Pileup": 0.9538954946508353, 
+      "Muon ID": 4.3022214533678795, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 3.5260596363934193
+    }, 
+    {
+      "Category": "Cat1", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.0665803006115029, 
+      "Electron Veto": 1.1974240289797584, 
+      "Pileup": 0.3112141664674642, 
+      "Muon ID": 4.071575061084517, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 3.662920186317506
+    }
+  ], 
+  "HtoJPsi_Cat0": [
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HToJPsiGamma", 
+      "Photon ID": 1.2090156681190949, 
+      "Electron Veto": 1.0466814414964964, 
+      "Pileup": 0.8735692628882753, 
+      "Muon ID": 4.365785849689842, 
+      "Analysis Branch": "HtoJPsiPhoton", 
+      "Trigger": 6.485205101151357
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "HDalitz", 
+      "Photon ID": 1.1836062183747311, 
+      "Electron Veto": 1.0318522683130527, 
+      "Pileup": 1.7879901480089575, 
+      "Muon ID": 4.33077453486999, 
+      "Analysis Branch": "HtoJPsiPhoton", 
+      "Trigger": 5.9599319291836945
+    }
+  ], 
+  "ZtoJPsi_Cat0": [
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZToJPsiGamma", 
+      "Photon ID": 1.1132244360635424, 
+      "Electron Veto": 1.0527148272239208, 
+      "Pileup": 0.8313893011196554, 
+      "Muon ID": 4.604611932596647, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 4.321757257106701
+    }, 
+    {
+      "Category": "Cat0", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.0894448249816884, 
+      "Electron Veto": 1.0054004953098072, 
+      "Pileup": 1.2711263861808455, 
+      "Muon ID": 4.566215023988145, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 4.867484214244736
+    }
+  ], 
+  "ZtoJPsi_Cat3": [
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZToJPsiGamma", 
+      "Photon ID": 1.1048477959215142, 
+      "Electron Veto": 0.44556962025310304, 
+      "Pileup": 1.3261611990144269, 
+      "Muon ID": 5.63155094453736, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 7.607749074796084
+    }, 
+    {
+      "Category": "Cat3", 
+      "Analysis Sample": "ZGTo2MuG_MMuMu-2To15", 
+      "Photon ID": 1.1205170629187091, 
+      "Electron Veto": 0.4455696202533311, 
+      "Pileup": 4.4341982681786405, 
+      "Muon ID": 5.61412915761534, 
+      "Analysis Branch": "ZtoJPsiPhoton", 
+      "Trigger": 8.275255405043634
+    }
+  ]
+}

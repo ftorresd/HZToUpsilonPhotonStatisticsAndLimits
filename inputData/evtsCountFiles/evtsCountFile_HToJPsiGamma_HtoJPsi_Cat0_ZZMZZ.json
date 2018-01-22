@@ -1,0 +1,16 @@
+{
+"sample" : "HToJPsiGamma",
+"analysisBranch" : "HtoJPsi",
+"selCategory" : "Cat0",
+"systMaskYields" : "ZZMZZ",
+"total" : 0.33238034796487,
+"trigger" : 0.173276826044355,
+"muon_presel" : 0.13811066699257,
+"muon_id" : 0.113702953166147,
+"photon_sel" : 0.0897574144657384,
+"deltaR_muon_to_photon" : 0.087169465832656,
+"deltaRPhi_quarkonia_to_photon" : 0.0719863813275593,
+"quarkonia_mass_cut" : 0.0659694560045405,
+"ratio_cuts" : 0.0623146538752379,
+"hz_mass_cut" : 0.0622362779143999
+}

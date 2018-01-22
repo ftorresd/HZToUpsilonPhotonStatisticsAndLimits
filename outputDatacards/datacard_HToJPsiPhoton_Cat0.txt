@@ -1,0 +1,28 @@
+imax 1
+jmax *
+ikmax *
+-------------------------------------------------------------------------------------------------------
+shapes signal     Cat0      inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:signal_model
+shapes bckg       Cat0      inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:Bernstein
+shapes pbckg      Cat0      inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:PeakingBackground_cb
+shapes data_obs   Cat0      inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:data_obs
+--------------------------------------------------------------------------------------------------------
+bin Cat0
+observation -1
+--------------------------------------------------------------------------------------------------------
+bin             Cat0      Cat0    Cat0
+process         signal    bckg    pbckg
+process         0         1       2
+rate            0.0650774186491  283  0.194675937324
+---------------------------------------------------------------------------------------------------------
+lumi      lnN   1.025      -   1.025    
+HZ_xs_sc   lnN   0.933/1.046    -   0.933/1.046
+HZ_xs_pdf  lnN   1.032    -   1.032
+br_peak   lnN   -          -   1.060
+pu_r      lnN   1.00873569263     -   1.01787990148
+trg       lnN   1.06485205101     -   1.05959931929
+muon_id   lnN   1.0436578585     -   1.04330774535
+ph_id     lnN   1.01209015668     -   1.01183606218
+ele_veto  lnN   1.01046681441     -   1.01031852268
+#mean_HZ   param 125 1.01
+#sigma_cb     param 3 1.0493
