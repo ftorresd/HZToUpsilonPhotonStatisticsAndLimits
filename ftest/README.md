@@ -18,7 +18,7 @@ scramv1 b clean; scramv1 b # always make a clean build, as scram doesn't always 
 
 ```
 
-# Git commands for HZGamma Limits package
+### Git commands for HZGamma Limits package
 ```
 cd $CMSSW_BASE/src/HiggsAnalysis
 git clone git@github.com:ftorresd/HZToUpsilonPhotonStatisticsAndLimits.git HZToUpsilonPhotonStatisticsAndLimits
@@ -27,21 +27,21 @@ make
 
 ```
 
-# Using F-Test macro adapted of the flashgg packaged
+### Using F-Test macro adapted of the flashgg packaged
 ```
 ##Example to produce f-test using flashgg macros.
 ./bin/fTest -i /afs/cern.ch/user/f/ftorresd/workSpace/public/paraElizaESandro/combineIssue/HZToUpsilonPhotonStatisticsAndLimits/inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat0.root --saveMultiPdf CMS-HGG_multipdf_HToJPsiGamma_afterFtest.root -D outdir_HToJPsiGamma_example/bkgfTest-Data -f UntaggedTag_0 --isData 1
 
 ```
 
-# Instruction to use combine packaged to make Bias Studies
+### Instruction to use combine packaged to make Bias Studies
  The combine version is 74X, rather than 81X which I see you are using, but the commands are very similar. If you want to run the code as is, you would also need to include this small modification I made in this private link on git 
 ```
 https://github.com/edjtscott/HiggsAnalysis-CombinedLimit/commit/a76d683aaf72ef92d468714bfddb9e2181e13ae7
 
 
 ```
-# Bias Studies recipes following Combine tutorial 2015: 
+### Bias Studies recipes following Combine tutorial 2015: 
 https://indico.cern.ch/event/456547/contributions/1126037/attachments/1188555/1724451/biasstudy.pdf
 
 
