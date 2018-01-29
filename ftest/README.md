@@ -37,7 +37,7 @@ make
 ```
 
 ### Macro MultiPDF to include Bernstein pdf in workspace
-cd /
+https://github.com/ftorresd/HZToUpsilonPhotonStatisticsAndLimits/blob/master/ftest/macros/makeRooMultiPdfToWS.C
 
 
 ### Instruction to use combine packaged to make Bias Studies
@@ -59,4 +59,5 @@ combine BiasStudy_Toy_Datacard.txt -M GenerateOnly --setPhysicsModelParameters p
 - Step 1
 combine BiasStudy_Toy_Datacard.txt -M MaxLikelihoodFit -s 1 --plots --saveShapes --setPhysicsModelParameters pdf_index=0,r=200.0 --toysFile higgsCombineHiggsToJpsiToy.GenerateOnly.mH125.98765.root -t 5000 --rMin -5000.0 --rMax 5000.0 --freezeNuisances pdf_index --freezeNuisanceGroups signal -n HiggsToJpsiToyFits2 -v4 > & HiggsToJpsiToyFits2.log
 
+```
 
