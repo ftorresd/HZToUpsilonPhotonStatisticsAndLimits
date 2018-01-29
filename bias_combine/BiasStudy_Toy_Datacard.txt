@@ -1,0 +1,33 @@
+# Datacard example for H->gg like bias study
+imax 1 
+jmax 1 
+kmax * 
+---------------
+shapes data_obs    * HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:data_obs
+shapes signal      * HToJPsiPhotonSignalAndBackgroundFit_workspace_Cat0.root w:signal_model
+shapes background  * background_pdfs.root backgrounds:roomultipdf
+---------------
+# take event count from dataset (use -1)
+bin           cat1 
+observation   -1
+---------------
+
+bin      cat1		cat1 
+process  signal		background
+process  0    		1
+rate     0.0618		1
+
+---------------
+# usual systematics .... note, we advertise the pdf changing parameter as a discrete nuisance
+lumi      lnN  1.025	    -
+H_xs_sc   lnN  0.933/1.046  -       
+H_xs_pdf  lnN  1.032        -   
+pu_r      lnN  1.0086       -  
+trg       lnN  1.0640       -   
+muon_id   lnN  1.0436       -   
+ph_id     lnN  1.0120       -   
+ele_veto  lnN  1.0105       -   
+pdf_index	 	discrete
+
+
+signal group = lumi H_xs_sc H_xs_pdf pu_r trg muon_id ph_id ele_veto
