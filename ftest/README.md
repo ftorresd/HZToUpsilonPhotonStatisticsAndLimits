@@ -1,4 +1,6 @@
 ## Ftest recipes
+https://github.com/cms-analysis/flashggFinalFit/blob/master/Background/README.md/
+
 ```
 
 https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHiggsAnalysisCombinedLimit#ROOT6_SLC6_release_CMSSW_7_4_X
@@ -34,6 +36,10 @@ make
 
 ```
 
+### Macro MultiPDF to include Bernstein pdf in workspace
+cd /
+
+
 ### Instruction to use combine packaged to make Bias Studies
  The combine version is 74X, rather than 81X which I see you are using, but the commands are very similar. If you want to run the code as is, you would also need to include this small modification I made in this private link on git 
 ```
@@ -51,4 +57,6 @@ cd $CMSSW_BASE/src/HiggsAnalysis/HZToUpsilonPhotonStatisticsAndLimits/bias_combi
 combine BiasStudy_Toy_Datacard.txt -M GenerateOnly --setPhysicsModelParameters pdf_index=0,r=200 -t 5000 --expectSignal 200 --saveToys -m 125 --freezeNuisances pdf_index,r -s 98765 --freezeNuisanceGroups signal -n HiggsToJpsiToy
 
 - Step 1
- combine BiasStudy_Toy_Datacard.txt -M MaxLikelihoodFit -s 1 --plots --saveShapes --setPhysicsModelParameters pdf_index=0,r=200.0 --toysFile higgsCombineHiggsToJpsiToy.GenerateOnly.mH125.98765.root -t 5000 --rMin -5000.0 --rMax 5000.0 --freezeNuisances pdf_index --freezeNuisanceGroups signal -n HiggsToJpsiToyFits2 -v4 > & HiggsToJpsiToyFits2.log
+combine BiasStudy_Toy_Datacard.txt -M MaxLikelihoodFit -s 1 --plots --saveShapes --setPhysicsModelParameters pdf_index=0,r=200.0 --toysFile higgsCombineHiggsToJpsiToy.GenerateOnly.mH125.98765.root -t 5000 --rMin -5000.0 --rMax 5000.0 --freezeNuisances pdf_index --freezeNuisanceGroups signal -n HiggsToJpsiToyFits2 -v4 > & HiggsToJpsiToyFits2.log
+
+
