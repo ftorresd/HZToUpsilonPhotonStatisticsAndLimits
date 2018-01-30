@@ -1,0 +1,7 @@
+limits/inputData/*
+limits/output*
+*.DS_*
+fits/fitPlotFiles/*
+fits/fitPlotFiles_BKP/*
+fits/inputData/*
+*/tmpdir/*
