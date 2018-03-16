@@ -1,4 +1,4 @@
-# HZtoUpsilonPhoton - Fits
+# HZToUpsilonPhotonStatisticsAndLimits - Fits
 
 ## Run the fitter
 
