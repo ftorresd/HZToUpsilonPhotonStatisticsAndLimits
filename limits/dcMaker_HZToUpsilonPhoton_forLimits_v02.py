@@ -2,8 +2,15 @@
 
 import json
 import argparse
-import StringIO
+import StringIO 
 import os
+
+import ROOT
+
+runCombine = True
+# runCombine = False
+
+limitsJSON = {}
 
 def getRate(ratesJSON, analysisBranch, selCategory, sample):
 	 altAnalysisBranch = analysisBranch.replace("Photon", "").replace("To", "to")
@@ -37,35 +44,50 @@ def getSyst(systsJSON, analysisBranch, selCategory, sample, syst):
 	 		if (analysisBranch == "HToUpsilonPhoton" and s["Analysis Sample"] == "HToUpsilonGamma"):
 	 			return str(s[syst]/100.0+1.0)
 
-def saveAndRun(analysisBranch, selCategory, datacard):
+def getLimits(rootFileName, analysisBranch, selCategory):
+	file = ROOT.TFile(rootFileName)
+	tree = file.Get('limit')
+	lastLimit = -99.0
+	for evt in tree:
+		lastLimit = evt.limit
+	limitsJSON[analysisBranch+"_"+selCategory] = lastLimit
+
+
+def saveAndRun(analysisBranch, selCategory, datacard, toRun = True):
 	os.system("rm *.root")
-	with open("outputDatacards/datacard_"+analysisBranch+"_"+selCategory+".txt" , "w") as datacardFile:
+	with open("outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt" , "w") as datacardFile:
 		datacardFile.write(datacard)
 	print datacard
-	print "\n\n------------> Running Combine: combine -M Asymptotic outputDatacards/datacard_"+analysisBranch+"_"+selCategory+".txt ..."
-	os.system("combine -M Asymptotic outputDatacards/datacard_"+analysisBranch+"_"+selCategory+".txt > outputLimits/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt")
-	print "\n\n------------> Combine output:"
-	os.system("cat outputLimits/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt")
-	print ""
-	print "\n\n------------> Running Combine: combine -M HybridNew --frequentist --testStat LHC outputDatacards/datacard_"+analysisBranch+"_"+selCategory+".txt -H ProfileLikelihood --fork 4"
-	os.system("                               combine -M HybridNew --frequentist --testStat LHC outputDatacards/datacard_"+analysisBranch+"_"+selCategory+".txt -H ProfileLikelihood --fork 4 > outputLimits/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt")
-	print "\n\n------------> Combine output:"
-	os.system("cat outputLimits/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt")
-	print ""
-	os.system("mkdir -p outputLimits/rootFiles ; mv *.root outputLimits/rootFiles/.")
+	if toRun:
+		print "\n\n------------> Running Combine: combine -M Asymptotic outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt ..."
+		# os.system("combine -v 1 -M Asymptotic outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt >> outputLimits_v02/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt 2>&1")
+		os.system("combine -v 1 -M Asymptotic outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt >> outputLimits_v02/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt 2>&1")
+		print "\n\n------------> Combine output:"
+		os.system("cat outputLimits_v02/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt")
+		print ""
+		# print "\n\n------------> Running Combine: combine -M HybridNew"
+		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt -H ProfileLikelihood --fork 4 >> outputLimits_v02/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt 2>&1")
+		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt -T 500 -H ProfileLikelihood --fork 4 >> outputLimits_v02/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt 2>&1")
+		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v02/datacard_"+analysisBranch+"_"+selCategory+".txt -T 500 -H ProfileLikelihood --fork 4 ")
+		# print "\n\n------------> Combine output:"
+		# os.system("cat outputLimits_v02/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt")
+		print ""
+		os.system("mkdir -p outputLimits_v02/rootFiles ; mv higgsCombineTest.Asymptotic.mH120.root outputLimits_v02/rootFiles/higgsCombineOutput_"+analysisBranch+"_"+selCategory+".root")
+		getLimits("outputLimits_v02/rootFiles/higgsCombineOutput_"+analysisBranch+"_"+selCategory+".root", analysisBranch, selCategory)
 
 
 
-
+ 
 
 singleCategoryTemplate = """imax 1
 jmax *
 ikmax *
 -------------------------------------------------------------------------------------------------------
 shapes signal     Cat0      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat0.root w:@@SIGNAL_MODEL@@
-shapes bckg       Cat0      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat0.root w:@@BCKG_MODEL@@
+shapes bckg       Cat0      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@_Cat0_afterFtest.root                              multipdf:@@BCKG_MODEL@@
 shapes pbckg      Cat0      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat0.root w:@@PBCKG_MODEL@@
 shapes data_obs   Cat0      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat0.root w:data_obs
+# shapes data_obs   Cat0      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@_Cat0_afterFtest.root multipdf:roohist_data_mass_UntaggedTag_0
 --------------------------------------------------------------------------------------------------------
 bin Cat0
 observation -1
@@ -73,19 +95,21 @@ observation -1
 bin             Cat0      Cat0    Cat0
 process         signal    bckg    pbckg
 process         0         1       2
-rate            @@RATE_SIGNAL@@  @@RATE_BCKG@@  @@RATE_PBCKG@@
+rate            @@RATE_SIGNAL@@  1.0  @@RATE_PBCKG@@
 ---------------------------------------------------------------------------------------------------------
-lumi      lnN   1.025      -   1.025    
+lumi       lnN   1.025                         -   1.025    
 HZ_xs_sc   lnN   @@SYST_HZ_XSEC_SC_SIGNAL@@    -   @@SYST_HZ_XSEC_SC_PBCKG@@
-HZ_xs_pdf  lnN   @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@
-br_peak   lnN   -          -   @@SYST_BR_PEAK_PBCKG@@
-pu_r      lnN   @@SYST_PU_R_SIGNAL@@     -   @@SYST_PU_R_PBCKG@@
-trg       lnN   @@SYST_TRG_SIGNAL@@     -   @@SYST_TRG_PBCKG@@
-muon_id   lnN   @@SYST_MUON_ID_SIGNAL@@     -   @@SYST_MUON_ID_PBCKG@@
-ph_id     lnN   @@SYST_PH_ID_SIGNAL@@     -   @@SYST_PH_ID_PBCKG@@
-ele_veto  lnN   @@SYST_ELE_VETO_SIGNAL@@     -   @@SYST_ELE_VETO_PBCKG@@
-#mean_HZ   param 125 1.01
-#sigma_cb     param 3 1.0493
+HZ_xs_pdf  lnN   @@SYST_HZ_XSEC_PDF_SIGNAL@@   -   @@SYST_HZ_XSEC_PDF_PBCKG@@
+br_peak    lnN   -                             -   @@SYST_BR_PEAK_PBCKG@@
+pu_r       lnN   @@SYST_PU_R_SIGNAL@@          -   @@SYST_PU_R_PBCKG@@
+trg        lnN   @@SYST_TRG_SIGNAL@@           -   @@SYST_TRG_PBCKG@@
+muon_id    lnN   @@SYST_MUON_ID_SIGNAL@@       -   @@SYST_MUON_ID_PBCKG@@
+ph_id      lnN   @@SYST_PH_ID_SIGNAL@@         -   @@SYST_PH_ID_PBCKG@@
+ele_veto   lnN   @@SYST_ELE_VETO_SIGNAL@@      -   @@SYST_ELE_VETO_PBCKG@@
+pdfindex_UntaggedTag_0_13TeV_Cat0   discrete
+# CMS_hgg_UntaggedTag_0_13TeV_bkgshape_norm flatparam
+#mean_HZ   param 125  1.01
+#sigma_cb  param 3    1.0493
 """
 
 multiCategoryTemplate = """imax 3
@@ -93,17 +117,17 @@ jmax *
 ikmax *
 -------------------------------------------------------------------------------------------------------
 shapes signal     Cat1      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat1.root w:@@SIGNAL_MODEL@@
-shapes bckg       Cat1      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat1.root w:@@BCKG_MODEL@@
+shapes bckg       Cat1      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@_Cat1_afterFtest.root                              multipdf:@@BCKG_MODEL@@
 shapes pbckg      Cat1      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat1.root w:@@PBCKG_MODEL@@
 shapes data_obs   Cat1      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat1.root w:data_obs
 
 shapes signal     Cat2      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat2.root w:@@SIGNAL_MODEL@@
-shapes bckg       Cat2      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat2.root w:@@BCKG_MODEL@@
+shapes bckg       Cat2      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@_Cat2_afterFtest.root                              multipdf:@@BCKG_MODEL@@
 shapes pbckg      Cat2      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat2.root w:@@PBCKG_MODEL@@
 shapes data_obs   Cat2      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat2.root w:data_obs
 
 shapes signal     Cat3      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat3.root w:@@SIGNAL_MODEL@@
-shapes bckg       Cat3      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat3.root w:@@BCKG_MODEL@@
+shapes bckg       Cat3      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@_Cat3_afterFtest.root                              multipdf:@@BCKG_MODEL@@
 shapes pbckg      Cat3      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat3.root w:@@PBCKG_MODEL@@
 shapes data_obs   Cat3      @@WS_DIR@@/@@ANA_BRANCH@@SignalAndBackgroundFit/@@ANA_BRANCH@@SignalAndBackgroundFit_workspace_Cat3.root w:data_obs
 
@@ -114,19 +138,23 @@ observation       -1     -1     -1
 bin               Cat1      Cat1    Cat1   Cat2      Cat2    Cat2   Cat3      Cat3    Cat3
 process           signal    bckg    pbckg  signal    bckg    pbckg  signal    bckg    pbckg
 process           0         1       2      0         1       2       0        1       2
-rate              @@RATE_CAT1_SIGNAL@@  @@RATE_CAT1_BCKG@@  @@RATE_CAT1_PBCKG@@  @@RATE_CAT2_SIGNAL@@  @@RATE_CAT2_BCKG@@  @@RATE_CAT2_PBCKG@@   @@RATE_CAT3_SIGNAL@@  @@RATE_CAT3_BCKG@@  @@RATE_CAT3_PBCKG@@
+rate              @@RATE_CAT1_SIGNAL@@  1.0  @@RATE_CAT1_PBCKG@@  @@RATE_CAT2_SIGNAL@@  1.0  @@RATE_CAT2_PBCKG@@   @@RATE_CAT3_SIGNAL@@  1.0  @@RATE_CAT3_PBCKG@@
 --------------------------------------------------------------------------------------------------------------------
-lumi      lnN   1.025      -   1.025   1.025      -   1.025   1.025      -   1.025    
-HZ_xs_sc   lnN   @@SYST_HZ_XSEC_SC_SIGNAL@@    -   @@SYST_HZ_XSEC_SC_PBCKG@@   @@SYST_HZ_XSEC_SC_SIGNAL@@    -   @@SYST_HZ_XSEC_SC_PBCKG@@   @@SYST_HZ_XSEC_SC_SIGNAL@@    -   @@SYST_HZ_XSEC_SC_PBCKG@@   
-HZ_xs_pdf  lnN   @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@   @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@   @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@   
-br_peak   lnN   -          -   @@SYST_BR_PEAK_PBCKG@@    -          -   @@SYST_BR_PEAK_PBCKG@@    -          -   @@SYST_BR_PEAK_PBCKG@@   
-pu_r      lnN   @@SYST_PU_R_CAT1_SIGNAL@@     -   @@SYST_PU_R_CAT1_PBCKG@@   @@SYST_PU_R_CAT1_SIGNAL@@     -   @@SYST_PU_R_CAT1_PBCKG@@   @@SYST_PU_R_CAT1_SIGNAL@@     -   @@SYST_PU_R_CAT1_PBCKG@@   
-trg       lnN   @@SYST_TRG_CAT1_SIGNAL@@     -   @@SYST_TRG_CAT1_PBCKG@@   @@SYST_TRG_CAT1_SIGNAL@@     -   @@SYST_TRG_CAT1_PBCKG@@   @@SYST_TRG_CAT1_SIGNAL@@     -   @@SYST_TRG_CAT1_PBCKG@@   
-muon_id   lnN   @@SYST_MUON_ID_CAT1_SIGNAL@@     -   @@SYST_MUON_ID_CAT1_PBCKG@@   @@SYST_MUON_ID_CAT1_SIGNAL@@     -   @@SYST_MUON_ID_CAT1_PBCKG@@   @@SYST_MUON_ID_CAT1_SIGNAL@@     -   @@SYST_MUON_ID_CAT1_PBCKG@@   
-ph_id     lnN   @@SYST_PH_ID_CAT1_SIGNAL@@     -   @@SYST_PH_ID_CAT1_PBCKG@@   @@SYST_PH_ID_CAT1_SIGNAL@@     -   @@SYST_PH_ID_CAT1_PBCKG@@   @@SYST_PH_ID_CAT1_SIGNAL@@     -   @@SYST_PH_ID_CAT1_PBCKG@@   
-ele_veto  lnN   @@SYST_ELE_VETO_CAT1_SIGNAL@@     -   @@SYST_ELE_VETO_CAT1_PBCKG@@   @@SYST_ELE_VETO_CAT1_SIGNAL@@     -   @@SYST_ELE_VETO_CAT1_PBCKG@@   @@SYST_ELE_VETO_CAT1_SIGNAL@@     -   @@SYST_ELE_VETO_CAT1_PBCKG@@   
-#mean_HZ   param 125 1.01
-#sigma_cb     param 3 1.0493
+lumi       lnN    1.025                          -   1.025                         1.025                         -       1.025                          1.025                          -   1.025    
+HZ_xs_sc   lnN    @@SYST_HZ_XSEC_SC_SIGNAL@@     -   @@SYST_HZ_XSEC_SC_PBCKG@@     @@SYST_HZ_XSEC_SC_SIGNAL@@    -       @@SYST_HZ_XSEC_SC_PBCKG@@      @@SYST_HZ_XSEC_SC_SIGNAL@@     -   @@SYST_HZ_XSEC_SC_PBCKG@@   
+HZ_xs_pdf  lnN    @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@    @@SYST_HZ_XSEC_PDF_SIGNAL@@   -       @@SYST_HZ_XSEC_PDF_PBCKG@@     @@SYST_HZ_XSEC_PDF_SIGNAL@@    -   @@SYST_HZ_XSEC_PDF_PBCKG@@   
+br_peak    lnN    -                              -   @@SYST_BR_PEAK_PBCKG@@        -                             -       @@SYST_BR_PEAK_PBCKG@@         -                              -   @@SYST_BR_PEAK_PBCKG@@   
+pu_r       lnN    @@SYST_PU_R_CAT1_SIGNAL@@      -   @@SYST_PU_R_CAT1_PBCKG@@      @@SYST_PU_R_CAT2_SIGNAL@@     -       @@SYST_PU_R_CAT2_PBCKG@@       @@SYST_PU_R_CAT3_SIGNAL@@      -   @@SYST_PU_R_CAT3_PBCKG@@   
+trg        lnN    @@SYST_TRG_CAT1_SIGNAL@@       -   @@SYST_TRG_CAT1_PBCKG@@       @@SYST_TRG_CAT2_SIGNAL@@      -       @@SYST_TRG_CAT2_PBCKG@@        @@SYST_TRG_CAT3_SIGNAL@@       -   @@SYST_TRG_CAT3_PBCKG@@   
+muon_id    lnN    @@SYST_MUON_ID_CAT1_SIGNAL@@   -   @@SYST_MUON_ID_CAT1_PBCKG@@   @@SYST_MUON_ID_CAT2_SIGNAL@@  -       @@SYST_MUON_ID_CAT2_PBCKG@@    @@SYST_MUON_ID_CAT3_SIGNAL@@   -   @@SYST_MUON_ID_CAT3_PBCKG@@   
+ph_id      lnN    @@SYST_PH_ID_CAT1_SIGNAL@@     -   @@SYST_PH_ID_CAT1_PBCKG@@     @@SYST_PH_ID_CAT2_SIGNAL@@    -       @@SYST_PH_ID_CAT2_PBCKG@@      @@SYST_PH_ID_CAT3_SIGNAL@@     -   @@SYST_PH_ID_CAT3_PBCKG@@   
+ele_veto   lnN    @@SYST_ELE_VETO_CAT1_SIGNAL@@  -   @@SYST_ELE_VETO_CAT1_PBCKG@@  @@SYST_ELE_VETO_CAT2_SIGNAL@@ -       @@SYST_ELE_VETO_CAT2_PBCKG@@   @@SYST_ELE_VETO_CAT3_SIGNAL@@  -   @@SYST_ELE_VETO_CAT3_PBCKG@@   
+pdfindex_UntaggedTag_0_13TeV_Cat1   discrete
+pdfindex_UntaggedTag_0_13TeV_Cat2   discrete
+pdfindex_UntaggedTag_0_13TeV_Cat3   discrete
+# CMS_hgg_UntaggedTag_0_13TeV_bkgshape_norm flatparam
+#mean_HZ   param  125   1.01
+#sigma_cb  param  3     1.0493
 """
 
 
@@ -150,11 +178,11 @@ def makeDatacard(analysisBranch, selCategory):
 
 				if (analysisBranch == "ZToJPsiPhoton" or analysisBranch == "ZToUpsilonPhoton"):
 					datacard = datacard.replace("@@SIGNAL_MODEL@@", "dcball")
-					datacard = datacard.replace("@@BCKG_MODEL@@", "Bernstein")
+					datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
 					datacard = datacard.replace("@@PBCKG_MODEL@@", "dcballPeakingBackground")
 				if (analysisBranch == "HToJPsiPhoton" or analysisBranch == "HToUpsilonPhoton"):
 					datacard = datacard.replace("@@SIGNAL_MODEL@@", "signal_model")
-					datacard = datacard.replace("@@BCKG_MODEL@@", "Bernstein")
+					datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
 					datacard = datacard.replace("@@PBCKG_MODEL@@", "PeakingBackground_cb")
 
 				# rates
@@ -202,8 +230,9 @@ def makeDatacard(analysisBranch, selCategory):
 				datacard = datacard.replace("@@SYST_ELE_VETO_SIGNAL@@", getSyst(systsJSON, analysisBranch, selCategory, "signal", "Electron Veto"))
 				datacard = datacard.replace("@@SYST_ELE_VETO_PBCKG@@", getSyst(systsJSON, analysisBranch, selCategory, "pbckg", "Electron Veto"))
 
-				saveAndRun(analysisBranch, selCategory, datacard)
-
+				# saveAndRun(analysisBranch, selCategory, datacard)
+				saveAndRun(analysisBranch, selCategory, datacard, runCombine)
+ 
 	###########################################################################
 	# Cat123
 	if (selCategory == "Cat123"):
@@ -220,11 +249,11 @@ def makeDatacard(analysisBranch, selCategory):
 
 				if (analysisBranch == "ZToJPsiPhoton" or analysisBranch == "ZToUpsilonPhoton"):
 					datacard = datacard.replace("@@SIGNAL_MODEL@@", "dcball")
-					datacard = datacard.replace("@@BCKG_MODEL@@", "Bernstein")
+					datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
 					datacard = datacard.replace("@@PBCKG_MODEL@@", "dcballPeakingBackground")
 				if (analysisBranch == "HToJPsiPhoton" or analysisBranch == "HToUpsilonPhoton"):
 					datacard = datacard.replace("@@SIGNAL_MODEL@@", "signal_model")
-					datacard = datacard.replace("@@BCKG_MODEL@@", "Bernstein")
+					datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
 					datacard = datacard.replace("@@PBCKG_MODEL@@", "PeakingBackground_cb")
 				# syst - HZ_xs_sc
 				if (analysisBranch == "ZToJPsiPhoton" or analysisBranch == "ZToUpsilonPhoton"):
@@ -273,7 +302,8 @@ def makeDatacard(analysisBranch, selCategory):
 					datacard = datacard.replace("@@SYST_ELE_VETO_"+cat.upper()+"_SIGNAL@@", getSyst(systsJSON, analysisBranch, cat, "signal", "Electron Veto"))
 					datacard = datacard.replace("@@SYST_ELE_VETO_"+cat.upper()+"_PBCKG@@", getSyst(systsJSON, analysisBranch, cat, "pbckg", "Electron Veto"))
 					
-				saveAndRun(analysisBranch, selCategory, datacard)
+				# saveAndRun(analysisBranch, selCategory, datacard)
+				saveAndRun(analysisBranch, selCategory, datacard, runCombine)
 
 if __name__ == "__main__":
 	#############################################################################################
@@ -289,14 +319,23 @@ if __name__ == "__main__":
  | |) / _` |  _/ _` / _/ _` | '_/ _` | | |\/| / _` | / / -_) '_|
  |___/\__,_|\__\__,_\__\__,_|_| \__,_| |_|  |_\__,_|_\_\___|_|  
 																"""
-	os.system("rm -rf outputDatacards/*")
-	os.system("rm -rf outputLimits/*")
+	os.system("rm -rf outputDatacards_v02/*")
+	os.system("rm -rf outputLimits_v02/*")
 	makeDatacard("ZToJPsiPhoton", "Cat0")
 	makeDatacard("ZToJPsiPhoton", "Cat123")
 	makeDatacard("HToJPsiPhoton", "Cat0")
 	makeDatacard("ZToUpsilonPhoton", "Cat0")
 	makeDatacard("ZToUpsilonPhoton", "Cat123")
 	makeDatacard("HToUpsilonPhoton", "Cat0")
+
+	# dump limits
+	jsondata = json.dumps(limitsJSON, sort_keys=True, indent=2, separators=(',', ': '))
+	os.system("rm outputLimits_v02/limits.json")
+	with open("outputLimits_v02/limits.json", 'w') as out_file:
+		out_file.write(jsondata)
+	print "\n"+jsondata+"\n"
+
+
 
 
 

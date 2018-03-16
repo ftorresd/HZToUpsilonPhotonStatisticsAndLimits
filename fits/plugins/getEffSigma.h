@@ -26,7 +26,7 @@ using namespace RooFit;
 pair<double,double> getEffSigma(RooRealVar *mass, RooAbsPdf *pdf, double wmin=110., double wmax=130., double step=0.002, double epsilon=1.e-2){
 
   RooAbsReal *cdf = pdf->createCdf(RooArgList(*mass));
-  cout << "Computing effSigma...." << endl;
+  cout << "\n\nComputing effSigma...\n" << endl;
   // TStopwatch sw;
   // sw.Start();
   double point=wmin;
@@ -69,3 +69,5 @@ pair<double,double> getEffSigma(RooRealVar *mass, RooAbsPdf *pdf, double wmin=11
   pair<double,double> result(low,high);
   return result;
 }
+
+

@@ -21,7 +21,8 @@ dataF.open("mass.txt",ios::app|ios::ate);
  // TFile *f = new TFile("/afs/cern.ch/user/f/ftorresd/workSpace/public/paraSandro/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG.root") ;
 
 //  /afs/cern.ch/user/f/ftorresd/workSpace/public/paraSandro/fitPlotFiles/HToUpsilonPhotonSignalAndBackgroundFit/
-TFile *f = new TFile("CMS-HGG_multipdf_HToJPsiGamma_afterFtest.root");
+// TFile *f = new TFile("../CMS-HGG_multipdf_HToJPsiGamma_afterFtest.root");
+TFile *f = new TFile("/afs/cern.ch/user/f/ftorresd/workSpace/private/HZUpsilonPhoton2016/CMSSW_7_4_7/src/HZToUpsilonPhotonStatisticsAndLimits/bias_combine/background_pdfs.root");
 
   // Retrieve workspace from file
   RooWorkspace* w = (RooWorkspace*) f->Get("multipdf") ;
