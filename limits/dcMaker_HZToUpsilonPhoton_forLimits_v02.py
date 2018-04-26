@@ -24,7 +24,8 @@ def getRate(ratesJSON, analysisBranch, selCategory, sample):
 	 			return str(s["Final Yield/Count"])
 	 		if (analysisBranch == "HToJPsiPhoton" and s["Analysis Sample"] == "HToJPsiGamma"):
 	 			return str(s["Final Yield/Count"])
-	 		if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilon1SGamma"):
+	 		# if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilon1SGamma"):
+	 		if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilonGamma"):
 	 			return str(s["Final Yield/Count"])
 	 		if (analysisBranch == "HToUpsilonPhoton" and s["Analysis Sample"] == "HToUpsilonGamma"):
 	 			return str(s["Final Yield/Count"])
@@ -39,7 +40,8 @@ def getSyst(systsJSON, analysisBranch, selCategory, sample, syst):
 	 			return str(s[syst]/100.0+1.0)
 	 		if (analysisBranch == "HToJPsiPhoton" and s["Analysis Sample"] == "HToJPsiGamma"):
 	 			return str(s[syst]/100.0+1.0)
-	 		if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilon1SGamma"):
+	 		# if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilon1SGamma"):
+	 		if (analysisBranch == "ZToUpsilonPhoton" and s["Analysis Sample"] == "ZToUpsilonGamma"):
 	 			return str(s[syst]/100.0+1.0)
 	 		if (analysisBranch == "HToUpsilonPhoton" and s["Analysis Sample"] == "HToUpsilonGamma"):
 	 			return str(s[syst]/100.0+1.0)
@@ -107,7 +109,6 @@ muon_id    lnN   @@SYST_MUON_ID_SIGNAL@@       -   @@SYST_MUON_ID_PBCKG@@
 ph_id      lnN   @@SYST_PH_ID_SIGNAL@@         -   @@SYST_PH_ID_PBCKG@@
 ele_veto   lnN   @@SYST_ELE_VETO_SIGNAL@@      -   @@SYST_ELE_VETO_PBCKG@@
 pdfindex_UntaggedTag_0_13TeV_Cat0   discrete
-# CMS_hgg_UntaggedTag_0_13TeV_bkgshape_norm flatparam
 #mean_HZ   param 125  1.01
 #sigma_cb  param 3    1.0493
 """
@@ -152,7 +153,6 @@ ele_veto   lnN    @@SYST_ELE_VETO_CAT1_SIGNAL@@  -   @@SYST_ELE_VETO_CAT1_PBCKG@
 pdfindex_UntaggedTag_0_13TeV_Cat1   discrete
 pdfindex_UntaggedTag_0_13TeV_Cat2   discrete
 pdfindex_UntaggedTag_0_13TeV_Cat3   discrete
-# CMS_hgg_UntaggedTag_0_13TeV_bkgshape_norm flatparam
 #mean_HZ   param  125   1.01
 #sigma_cb  param  3     1.0493
 """

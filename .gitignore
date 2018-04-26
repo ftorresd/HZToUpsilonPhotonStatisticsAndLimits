@@ -22,3 +22,4 @@ ftest/*root
 fits/tmpdir/
 ftest/dat/
 ftest/lib/
+*_BKP

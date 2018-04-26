@@ -24,18 +24,18 @@ rm -rf output_*.txt
 # --analysisBranch HToJPsiPhoton 
 
 
-# HToJPsiPhoton - Cat0
-./bin/fTest \
--i inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat0.root \
---saveMultiPdf CMS-HGG_multipdf_HToJPsiPhoton_Cat0_afterFtest.root \
--D outdir_HToJPsiPhoton_Cat0/bkgfTest-Data \
--f UntaggedTag_0 \
---isData 1 \
---isZ 0 \
---HZToUpsilonPhotonCat Cat0 \
---analysisBranch HToJPsiPhoton >> output_HToJPsiPhoton_Cat0.txt 2>&1
+# # HToJPsiPhoton - Cat0
+# ./bin/fTest \
+# -i inputData/fitPlotFiles/HToJPsiPhotonSignalAndBackgroundFit/HToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat0.root \
+# --saveMultiPdf CMS-HGG_multipdf_HToJPsiPhoton_Cat0_afterFtest.root \
+# -D outdir_HToJPsiPhoton_Cat0/bkgfTest-Data \
+# -f UntaggedTag_0 \
+# --isData 1 \
+# --isZ 0 \
+# --HZToUpsilonPhotonCat Cat0 \
+# --analysisBranch HToJPsiPhoton >> output_HToJPsiPhoton_Cat0.txt 2>&1
 
-cat output_HToJPsiPhoton_Cat0.txt
+# cat output_HToJPsiPhoton_Cat0.txt
  
 
 # HToUpsilonPhoton - Cat0
@@ -52,61 +52,61 @@ cat output_HToJPsiPhoton_Cat0.txt
 cat output_HToUpsilonPhoton_Cat0.txt
 
 
-# ZToJPsiPhoton - Cat0
-./bin/fTest \
--i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat0.root \
---saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat0_afterFtest.root \
--D outdir_ZToJPsiPhoton_Cat0/bkgfTest-Data \
--f UntaggedTag_0 \
---isData 1 \
---isZ 1 \
---HZToUpsilonPhotonCat Cat0 \
---analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat0.txt 2>&1
+# # ZToJPsiPhoton - Cat0
+# ./bin/fTest \
+# -i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat0.root \
+# --saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat0_afterFtest.root \
+# -D outdir_ZToJPsiPhoton_Cat0/bkgfTest-Data \
+# -f UntaggedTag_0 \
+# --isData 1 \
+# --isZ 1 \
+# --HZToUpsilonPhotonCat Cat0 \
+# --analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat0.txt 2>&1
 
-cat output_ZToJPsiPhoton_Cat0.txt
-
-
-# ZToJPsiPhoton - Cat1
-./bin/fTest \
--i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat1.root \
---saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat1_afterFtest.root \
--D outdir_ZToJPsiPhoton_Cat1/bkgfTest-Data \
--f UntaggedTag_0 \
---isData 1 \
---isZ 1 \
---HZToUpsilonPhotonCat Cat1 \
---analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat1.txt 2>&1
-
-cat output_ZToJPsiPhoton_Cat1.txt
+# cat output_ZToJPsiPhoton_Cat0.txt
 
 
-# ZToJPsiPhoton - Cat2
-./bin/fTest \
--i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat2.root \
---saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat2_afterFtest.root \
--D outdir_ZToJPsiPhoton_Cat2/bkgfTest-Data \
--f UntaggedTag_0 \
---isData 1 \
---isZ 1 \
---HZToUpsilonPhotonCat Cat2 \
---analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat2.txt 2>&1
+# # ZToJPsiPhoton - Cat1
+# ./bin/fTest \
+# -i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat1.root \
+# --saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat1_afterFtest.root \
+# -D outdir_ZToJPsiPhoton_Cat1/bkgfTest-Data \
+# -f UntaggedTag_0 \
+# --isData 1 \
+# --isZ 1 \
+# --HZToUpsilonPhotonCat Cat1 \
+# --analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat1.txt 2>&1
 
-cat output_ZToJPsiPhoton_Cat2.txt
+# cat output_ZToJPsiPhoton_Cat1.txt
+
+
+# # ZToJPsiPhoton - Cat2
+# ./bin/fTest \
+# -i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat2.root \
+# --saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat2_afterFtest.root \
+# -D outdir_ZToJPsiPhoton_Cat2/bkgfTest-Data \
+# -f UntaggedTag_0 \
+# --isData 1 \
+# --isZ 1 \
+# --HZToUpsilonPhotonCat Cat2 \
+# --analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat2.txt 2>&1
+
+# cat output_ZToJPsiPhoton_Cat2.txt
 
 
 
-# ZToJPsiPhoton - Cat3
-./bin/fTest \
--i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat3.root \
---saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat3_afterFtest.root \
--D outdir_ZToJPsiPhoton_Cat3/bkgfTest-Data \
--f UntaggedTag_0 \
---isData 1 \
---isZ 1 \
---HZToUpsilonPhotonCat Cat3 \
---analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat3.txt 2>&1
+# # ZToJPsiPhoton - Cat3
+# ./bin/fTest \
+# -i inputData/fitPlotFiles/ZToJPsiPhotonSignalAndBackgroundFit/ZToJPsiPhotonSignalAndBackgroundFit_workspace_forFLASHGG_Cat3.root \
+# --saveMultiPdf CMS-HGG_multipdf_ZToJPsiPhoton_Cat3_afterFtest.root \
+# -D outdir_ZToJPsiPhoton_Cat3/bkgfTest-Data \
+# -f UntaggedTag_0 \
+# --isData 1 \
+# --isZ 1 \
+# --HZToUpsilonPhotonCat Cat3 \
+# --analysisBranch ZToJPsiPhoton >> output_ZToJPsiPhoton_Cat3.txt 2>&1
 
-cat output_ZToJPsiPhoton_Cat3.txt
+# cat output_ZToJPsiPhoton_Cat3.txt
 
 
 

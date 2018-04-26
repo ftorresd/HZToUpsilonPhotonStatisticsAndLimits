@@ -12,6 +12,8 @@
 	// gSystem->Load("$ROOFITSYS/lib/libRooStats.so") ;
 	// gROOT->ProcessLine(".L plugins/RooDCBShape/RooDCBShape.cxx+");
 
+	// gROOT->ProcessLine(".L plugins/ZToJPsiUpsilonPhotonSignalAndBackgroundFit.C+"); 
+	// gROOT->ProcessLine(".L plugins/HToJPsiUpsilonPhotonSignalAndBackgroundFit.C+"); 
 
 	gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton.C+"); 
 	// gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton2DFit.C+"); 

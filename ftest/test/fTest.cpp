@@ -49,6 +49,12 @@
 #include "../tdrStyle/tdrstyle.C"
 #include "../tdrStyle/CMS_lumi.C"
 
+
+#include "../../fits/plugins/json.hpp"
+using json = nlohmann::json;
+
+#include <boost/regex.hpp>
+
 using namespace std;
 using namespace RooFit;
 using namespace boost;
@@ -107,6 +113,13 @@ void runFit(RooAbsPdf *pdf, RooDataSet *data, double *NLL, int *stat_t, int MaxT
  double minnll=10e8;
  while (stat!=0){
    if (ntries>=MaxTries) break;
+   
+   // mass->setRange("unblindReg_1",mgg_low,mgg_mid_low);
+   // mass->setRange("unblindReg_2",mgg_mid_high,mgg_high);
+   // RooFitResult *fitTest = pdf->fitTo(*data,RooFit::Save(1)
+   //  ,RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE), Range("unblindReg_1,unblindReg_2")); //FIXME
+
+
    RooFitResult *fitTest = pdf->fitTo(*data,RooFit::Save(1)
     ,RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE)); //FIXME
    stat = fitTest->status();
@@ -390,10 +403,10 @@ void plot(string analysisBranch, RooRealVar *mass, RooMultiPdf *pdfs, RooCategor
 
   // mass->setRange("unblindReg_1",mgg_low,115);
   mass->setRange("unblindReg_1",mgg_low,mgg_mid_low);
-  cout << "unblindReg_1: " << mgg_low << " - " << mgg_mid_low << endl;
+  // cout << "unblindReg_1: " << mgg_low << " - " << mgg_mid_low << endl;
   // mass->setRange("unblindReg_2",135,mgg_high);
   mass->setRange("unblindReg_2",mgg_mid_high,mgg_high);
-  cout << "unblindReg_2: " << mgg_mid_high << " - " << mgg_high << endl;
+  // cout << "unblindReg_2: " << mgg_mid_high << " - " << mgg_high << endl;
   if (BLIND) {
     data->plotOn(plot,Binning((int)((mgg_high-mgg_low)/2.)),CutRange("unblindReg_1"));
     data->plotOn(plot,Binning((int)((mgg_high-mgg_low)/2.)),CutRange("unblindReg_2"));
@@ -429,8 +442,12 @@ void plot(string analysisBranch, RooRealVar *mass, RooMultiPdf *pdfs, RooCategor
     if (icat<=6) col=color[icat];
     else {col=kBlack; style++;}
     catIndex->setIndex(icat);
-    pdfs->getCurrentPdf()->fitTo(*data,RooFit::Minos(0),RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE));	 //FIXME
+    pdfs->getCurrentPdf()->fitTo(*data,RooFit::Minos(0),RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE));  //FIXME
+    // pdfs->getCurrentPdf()->fitTo(*data,RooFit::Minos(0),RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE), Range("unblindReg_1,unblindReg_2"));	 //FIXME
+    
+    // pdfs->getCurrentPdf()->plotOn(plot,LineColor(col),LineStyle(style), Range("full"), NormRange("unblindReg_1,unblindReg_2"));//,RooFit::NormRange("fitdata_1,fitdata_2"));
     pdfs->getCurrentPdf()->plotOn(plot,LineColor(col),LineStyle(style));//,RooFit::NormRange("fitdata_1,fitdata_2"));
+    
     TObject *pdfLeg = plot->getObject(int(plot->numItems()-1));
     std::string ext = "";
     if (bestFitPdf==icat) {
@@ -573,7 +590,7 @@ void plot(string analysisBranch, RooRealVar *mass, map<string,RooAbsPdf*> pdfs, 
   mass->setRange("unblindReg_1",mgg_low,mgg_mid_low);
 
   // mass->setRange("unblindReg_2",135,mgg_high);
-  mass->setRange("unblindReg_2",mgg_mid_high,mgg_high);
+  mass->setRange("unblindRegf_2",mgg_mid_high,mgg_high);
   if (BLIND) {
     data->plotOn(plot,Binning((int)((mgg_high-mgg_low)/2.)),CutRange("unblindReg_1"));
     data->plotOn(plot,Binning((int)((mgg_high-mgg_low)/2.)),CutRange("unblindReg_2"));
@@ -883,6 +900,11 @@ if(isFlashgg_){
 
  PdfModelBuilder pdfsModel;
  RooRealVar *mass = (RooRealVar*)inWS->var("CMS_hgg_mass");
+ mass->setRange("unblindReg_1",mgg_low,mgg_mid_low);
+ mass->setRange("unblindReg_2",mgg_mid_high,mgg_high);
+
+ // mass->setRange("fullRange",mgg_low,mgg_high);
+
 //        RooRealVar *mass = (RooRealVar*)inWS->var("mHZ");
  
  std:: cout << "[INFO] Got mass from ws " << mass << std::endl;
@@ -1107,10 +1129,24 @@ if(isFlashgg_){
     }
     RooCategory catIndex(catindexname.c_str(),"c");
     RooMultiPdf *pdf = new RooMultiPdf(Form("CMS_hgg_%s_%s_bkgshape",catname.c_str(),ext.c_str()),"all pdfs",catIndex,storedPdfs);
+
+
+
+
+    std::ifstream i("inputData/evtsCountFiles/FinalYields.json");
+    json evtCounts;
+    i >> evtCounts;
+
 			// RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries(),0,10E8);
-    RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries(),0,3*data->sumEntries());
+    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries(),0,3*data->sumEntries());
     // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries(),0.75*data->sumEntries(),1.75*data->sumEntries());
-    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries());
+    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries("fullRange"));
+    string strTemp = regex_replace(analysisBranch, regex("To"), "to")+"_"+HZToUpsilonPhotonCat_;
+    strTemp = regex_replace(strTemp, regex("Photon"), "");
+    // cout << "strTemp: " << strTemp << endl;
+    RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",evtCounts[strTemp][0]["Final Yield/Count"]);
+    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",evtCounts["ZtoUpsilonPhoton_Cat0"][0]["Final Yield/Count"]);
+
 			//nBackground.removeRange(); // bug in roofit will break combine until dev branch brought in
 			//double check the best pdf!
     int bestFitPdfIndex = getBestFitFunction(pdf,data,&catIndex,!verbose);

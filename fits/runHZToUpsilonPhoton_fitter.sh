@@ -1,6 +1,9 @@
 #!/bin/bash
 
 rm fitPlotFiles/effSigmaJSON.json
+rm fitPlotFiles/signalMeanSigmaJSON.json
+
+ulimit -n 2048
 
 time root -b -q -l run_Fitter.C+
 
