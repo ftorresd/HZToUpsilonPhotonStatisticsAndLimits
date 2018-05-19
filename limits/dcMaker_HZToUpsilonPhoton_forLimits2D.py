@@ -85,8 +85,11 @@ def runDatacard(analysisBranch, quarkoniaState, selCategory, toRun = True):
 		with open("outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt", 'w') as fout:
 			fout.writelines(data[1:])
 	if toRun:
-		print "\n\n------------> Running Combine: combine -M Asymptotic outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt ..."
-		os.system("combine -v 1 -M Asymptotic outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt  --rAbsAcc=0.001 --rRelAcc=0.0005 --rMax=10000000 --rMin=0 >> outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
+		print "\n\n------------> Running Combine: combine -M AsymptoticLimits outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt ..."
+		if (analysisBranch[0] == "H"):
+			os.system("combine -v 1 -M AsymptoticLimits outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt  --rAbsAcc=0.001 --rRelAcc=0.0005 --rMax=10000000 --rMin=0 >> outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
+		else:
+			os.system("combine -v 1 -M AsymptoticLimits outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt >> outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
 		print "\n\n------------> Combine output:"
 		os.system("cat outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
 		print ""
@@ -95,7 +98,7 @@ def runDatacard(analysisBranch, quarkoniaState, selCategory, toRun = True):
 		# print "\n\n------------> Combine output:"
 		# os.system("cat outputLimits2D/combineOutput_HybridNew_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
 		print ""
-		os.system("mkdir -p outputLimits2D/rootFiles ; mv higgsCombineTest.Asymptotic.mH120.root outputLimits2D/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root")
+		os.system("mkdir -p outputLimits2D/rootFiles ; mv higgsCombineTest.AsymptoticLimits.mH120.root outputLimits2D/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root")
 		getLimits("outputLimits2D/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root", analysisBranch, quarkoniaState, selCategory)
 
 
@@ -432,7 +435,10 @@ if __name__ == "__main__":
 		out_file.write(jsondataBRs)
 	print "\n"+jsondataBRs+"\n"
 
+	# dumps upper limits latex
 	os.system("./dumpLatexTable_v01.py")
+
+	os.system("rm combine_logger.out")
 
 
 

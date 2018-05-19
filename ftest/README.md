@@ -4,9 +4,14 @@
 
 ```make```
 
+## Copy inputData
+
+```cp -r ../fits/inputData/* inputData/.```
+```cp -r ../fits/fitPlotFiles2D inputData/.```
+
 ## Run the fTest
 
-```./run_fTest.sh```
+```./run_fTest2D.sh```
 
 
 
@@ -17,3 +22,4 @@ More information:
 
 
 
+  

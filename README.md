@@ -4,20 +4,39 @@
 
 - Setup the Higgs Combine Tool
 ```
-export SCRAM_ARCH=slc6_amd64_gcc491
-cmsrel CMSSW_7_4_7
-cd CMSSW_7_4_7/src 
-cmsenv
+# Higgs COMBINE
+cd <PATH TO A CMSSW_8_0_26_patch1>
+cd $CMSSW_BASE/src
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
 cd HiggsAnalysis/CombinedLimit
-cd $CMSSW_BASE/src/HiggsAnalysis/CombinedLimit
 git fetch origin
-git checkout v6.3.1
-scramv1 b clean; scramv1 b # always make a clean build, as scram doesn't always see updates to src/LinkDef.h
+git checkout v7.0.8
+cd $CMSSW_BASE/src
+scramv1 b clean
+scramv1 b 
 ```
-More info: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHiggsAnalysisCombinedLimit#ROOT6_SLC6_release_CMSSW_7_4_X
+More info: https://cms-hcomb.gitbooks.io/combine/
 
-- Clone:
+- Clone and setup:
 ```
+# Statistics and Limits Subtree
 git clone git@github.com:ftorresd/HZToUpsilonPhotonStatisticsAndLimits.git
+cd HZToUpsilonPhotonStatisticsAndLimits
+mkdir fits/inputData
+mkdir ftest/inputData
+mkdir limits/inputData
+mkdir limits/outputDatacards2D
+mkdir limits/outputLimits2D
+
+cd ftest
+make
+
+cd $CMSSW_BASE/src/HZToUpsilonPhotonStatisticsAndLimits
 ```
+
+## Workflow
+
+1) Fits: https://github.com/ftorresd/HZToUpsilonPhotonStatisticsAndLimits/blob/master/fits/README.md
+2) F-Test: https://github.com/ftorresd/HZToUpsilonPhotonStatisticsAndLimits/blob/master/ftest/README.md
+3) Limits: https://github.com/ftorresd/HZToUpsilonPhotonStatisticsAndLimits/blob/master/limits/README.md
+

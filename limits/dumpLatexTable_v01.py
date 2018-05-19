@@ -143,8 +143,8 @@ SM Prediction $[\\times10^{-9}]$ & @@H_1S_SM@@  &  @@H_2S_SM@@  & @@H_3S_SM@@   
 
 
 
-	os.system("rm outputLimits_v03/latexBRLimits.txt")
-	with open("outputLimits_v03/latexBRLimits.txt", 'w') as out_file:
+	os.system("rm outputLimits2D/latexBRLimits.txt")
+	with open("outputLimits2D/latexBRLimits.txt", 'w') as out_file:
 		out_file.write(latexBRLimits)
 	print "\n"+latexBRLimits+"\n"
 

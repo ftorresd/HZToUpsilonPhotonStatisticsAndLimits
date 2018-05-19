@@ -49,11 +49,11 @@
 // #include "plugins/tdrstyle.C"
 // #include "plugins/ZToJPsiUpsilonPhotonSignalAndBackgroundFit.C"
 // #include "plugins/HToJPsiUpsilonPhotonSignalAndBackgroundFit.C"
-#include "../../HiggsAnalysis/CombinedLimit/interface/HZZ2L2QRooPdfs.h"
+#include "../../../HiggsAnalysis/CombinedLimit/interface/HZZ2L2QRooPdfs.h"
 
-#include "plugins/getEffSigma.h"
+#include "getEffSigma.h"
 
-#include "plugins/json.hpp"
+#include "json.hpp"
 using json = nlohmann::json;
 
 // // #ifdef __CINT__

@@ -6,6 +6,7 @@ rm -rf *.root
 rm -rf outdir* 
 rm -rf output_*.txt 
 
+mkdir ftestOutput2D
 touch ftestOutput2D/bckgNormalization.json
 echo "{}" > ftestOutput2D/bckgNormalization.json
 
