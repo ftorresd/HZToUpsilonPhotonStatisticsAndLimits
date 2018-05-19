@@ -23,3 +23,9 @@ fits/tmpdir/
 ftest/dat/
 ftest/lib/
 *_BKP
+fits/fitPlotFiles2D/
+inputData_MuOnia/
+inputData_MuonEG/
+inputData_MuonEG_FullIso/
+inputData_MuonEG_FullIso_uncorr/
+ftest/ftestOutput2D/

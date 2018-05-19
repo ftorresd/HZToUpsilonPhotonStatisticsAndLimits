@@ -15,8 +15,8 @@
 	// gROOT->ProcessLine(".L plugins/ZToJPsiUpsilonPhotonSignalAndBackgroundFit.C+"); 
 	// gROOT->ProcessLine(".L plugins/HToJPsiUpsilonPhotonSignalAndBackgroundFit.C+"); 
 
-	gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton.C+"); 
-	// gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton2DFit.C+"); 
+	// gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton.C+"); 
+	gROOT->ProcessLine(".L fitter_HZtoUpsilonPhoton2DFit.C+"); 
 
 	// fitter_HZtoUpsilonPhoton(
 	// 	"outputHistos/outHistos_ZtoUpsilonPhoton_Data.root",
@@ -24,7 +24,8 @@
 	// 	// "outputHistos/outHistos_ZtoUpsilonPhoton_ZToJPsiGamma.root",
 	// 	"outputHistos/outHistos_ZtoUpsilonPhoton_ZGTo2MuG_MMuMu-2To15.root"
 	// 	);
- 	fitter_HZtoUpsilonPhoton(); 
+ 	// fitter_HZtoUpsilonPhoton(); 
+ 	fitter_HZtoUpsilonPhoton2DFit();
 
 }
 

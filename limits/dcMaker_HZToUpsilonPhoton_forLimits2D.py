@@ -73,50 +73,68 @@ def getLimits(rootFileName, analysisBranch, quarkoniaState, selCategory):
 
 def saveDatacard(analysisBranch, quarkoniaState, selCategory, datacard):
 	os.system("rm *.root")
-	with open("outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt" , "w") as datacardFile:
+	with open("outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt" , "w") as datacardFile:
 		datacardFile.write(datacard)
 	print datacard
 
 def runDatacard(analysisBranch, quarkoniaState, selCategory, toRun = True):
 	if (selCategory == "Cat123"):
-		os.system("combineCards.py Cat1=outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat1.txt Cat2=outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat2.txt Cat3=outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat3.txt > outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
-		with open("outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt", 'r') as fin:
-			data = fin.read().replace("outputDatacards_v03/inputData", "inputData").splitlines(True)
-		with open("outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt", 'w') as fout:
+		os.system("combineCards.py Cat1=outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat1.txt Cat2=outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat2.txt Cat3=outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_Cat3.txt > outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
+		with open("outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt", 'r') as fin:
+			data = fin.read().replace("outputDatacards2D/inputData", "inputData").splitlines(True)
+		with open("outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt", 'w') as fout:
 			fout.writelines(data[1:])
 	if toRun:
-		print "\n\n------------> Running Combine: combine -M Asymptotic outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt ..."
-		# os.system("combine -v 1 -M Asymptotic outputDatacards_v03/datacard_"+analysisBranch+"_"+selCategory+".txt >> outputLimits_v03/combineOutput_Asymptotic_"+analysisBranch+"_"+selCategory+".txt 2>&1")
-		# os.system("combine -v 1 -M Asymptotic outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt >> outputLimits_v03/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
-		os.system("combine -v 1 -M Asymptotic outputDatacards_v03/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt  --rAbsAcc=0.001 --rRelAcc=0.0005 --rMax=10000000 --rMin=0 >> outputLimits_v03/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
+		print "\n\n------------> Running Combine: combine -M Asymptotic outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt ..."
+		os.system("combine -v 1 -M Asymptotic outputDatacards2D/datacard_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt  --rAbsAcc=0.001 --rRelAcc=0.0005 --rMax=10000000 --rMin=0 >> outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt 2>&1")
 		print "\n\n------------> Combine output:"
-		os.system("cat outputLimits_v03/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
+		os.system("cat outputLimits2D/combineOutput_Asymptotic_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
 		print ""
 		# print "\n\n------------> Running Combine: combine -M HybridNew"
-		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v03/datacard_"+analysisBranch+"_"+selCategory+".txt -H ProfileLikelihood --fork 4 >> outputLimits_v03/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt 2>&1")
-		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v03/datacard_"+analysisBranch+"_"+selCategory+".txt -T 500 -H ProfileLikelihood --fork 4 >> outputLimits_v03/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt 2>&1")
-		# os.system("                               combine -v 2 -M HybridNew --frequentist --testStat=LHC outputDatacards_v03/datacard_"+analysisBranch+"_"+selCategory+".txt -T 500 -H ProfileLikelihood --fork 4 ")
+		# os.system("                               combine -v 1 -M HybridNew --frequentist --testStat=LHC outputDatacards2D/datacard_"+analysisBranch+"_"+selCategory+".txt -H ProfileLikelihood --fork 4 >> outputLimits2D/combineOutput_HybridNew_"+analysisBranch+"_"+selCategory+".txt 2>&1")
 		# print "\n\n------------> Combine output:"
-		# os.system("cat outputLimits_v03/combineOutput_HybridNew_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
+		# os.system("cat outputLimits2D/combineOutput_HybridNew_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".txt")
 		print ""
-		os.system("mkdir -p outputLimits_v03/rootFiles ; mv higgsCombineTest.Asymptotic.mH120.root outputLimits_v03/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root")
-		getLimits("outputLimits_v03/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root", analysisBranch, quarkoniaState, selCategory)
+		os.system("mkdir -p outputLimits2D/rootFiles ; mv higgsCombineTest.Asymptotic.mH120.root outputLimits2D/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root")
+		getLimits("outputLimits2D/rootFiles/higgsCombineOutput_"+analysisBranch[0:-6]+quarkoniaState+"Photon"+"_"+selCategory+".root", analysisBranch, quarkoniaState, selCategory)
 
- 
 
-singleCategoryTemplate = """imax 1
+
+
+singleCategoryTemplate_top = """imax 1
 jmax *
 ikmax *
 -------------------------------------------------------------------------------------------------------
 shapes signal     @@CAT@@      @@WS_DIR@@/@@ANA_BRANCH@@PhotonSignalAndBackgroundFit/@@ANA_BRANCH@@@@QUARKONIA_STATE@@PhotonSignalAndBackgroundFit_workspace_@@CAT@@.root w:@@SIGNAL_MODEL@@
-shapes bckg       @@CAT@@      @@WS_DIR@@/ftestOutput/CMS-HGG_multipdf_@@ANA_BRANCH@@Photon_@@CAT@@_afterFtest.root                              multipdf:@@BCKG_MODEL@@
-shapes pbckg      @@CAT@@      @@WS_DIR@@/@@ANA_BRANCH@@PhotonSignalAndBackgroundFit/@@ANA_BRANCH@@@@QUARKONIA_STATE@@PhotonSignalAndBackgroundFit_workspace_@@CAT@@.root w:@@PBCKG_MODEL@@
+shapes bckg       @@CAT@@      @@WS_DIR@@/ftestOutput2D/CMS-HGG_multipdf_@@ANA_BRANCH@@Photon_@@CAT@@_afterFtest.root                              multipdf:@@BCKG_MODEL@@
+@@IS_Z@@shapes pbckg      @@CAT@@      @@WS_DIR@@/@@ANA_BRANCH@@PhotonSignalAndBackgroundFit/@@ANA_BRANCH@@@@QUARKONIA_STATE@@PhotonSignalAndBackgroundFit_workspace_@@CAT@@.root w:@@PBCKG_MODEL@@
 shapes data_obs   @@CAT@@      @@WS_DIR@@/@@ANA_BRANCH@@PhotonSignalAndBackgroundFit/@@ANA_BRANCH@@@@QUARKONIA_STATE@@PhotonSignalAndBackgroundFit_workspace_@@CAT@@.root w:data_obs
 --------------------------------------------------------------------------------------------------------
 bin @@CAT@@
 observation -1
 --------------------------------------------------------------------------------------------------------
-bin             @@CAT@@      @@CAT@@    @@CAT@@
+"""
+
+binAndProcess_Z = """bin             @@CAT@@      @@CAT@@    
+process         signal    bckg   
+process         0         1       
+rate            @@RATE_SIGNAL@@  @@RATE_BCKG@@ 
+---------------------------------------------------------------------------------------------------------
+lumi       lnN   1.025                         -       
+HZ_xs_sc   lnN   @@SYST_HZ_XSEC_SC_SIGNAL@@    -   
+HZ_xs_pdf  lnN   @@SYST_HZ_XSEC_PDF_SIGNAL@@   -   
+pu_r       lnN   @@SYST_PU_R_SIGNAL@@          -   
+trg        lnN   @@SYST_TRG_SIGNAL@@           -   
+muon_id    lnN   @@SYST_MUON_ID_SIGNAL@@       -   
+ph_id      lnN   @@SYST_PH_ID_SIGNAL@@         -   
+ele_veto   lnN   @@SYST_ELE_VETO_SIGNAL@@      -   
+pol        lnN   @@SYST_POL_SIGNAL@@           -   
+pdfindex_UntaggedTag_0_13TeV_@@CAT@@   discrete
+@@MEAN_VAR@@   param @@MEAN_VAL@@  @@MEAN_ERR@@
+@@SIGMA_VAR@@  param @@SIGMA_VAL@@  @@SIGMA_ERR@@"""
+
+
+binAndProcess_H = """bin             @@CAT@@      @@CAT@@    @@CAT@@
 process         signal    bckg    pbckg
 process         0         1       2
 rate            @@RATE_SIGNAL@@  @@RATE_BCKG@@  @@RATE_PBCKG@@
@@ -133,8 +151,8 @@ ele_veto   lnN   @@SYST_ELE_VETO_SIGNAL@@      -   @@SYST_ELE_VETO_PBCKG@@
 pol        lnN   @@SYST_POL_SIGNAL@@           -   -
 pdfindex_UntaggedTag_0_13TeV_@@CAT@@   discrete
 @@MEAN_VAR@@   param @@MEAN_VAL@@  @@MEAN_ERR@@
-@@SIGMA_VAR@@  param @@SIGMA_VAL@@  @@SIGMA_ERR@@
-"""
+@@SIGMA_VAR@@  param @@SIGMA_VAL@@  @@SIGMA_ERR@@"""
+
 
 
 
@@ -146,45 +164,69 @@ def makeDatacard(analysisBranch, quarkoniaState, selCategory):
 		with open(systematicsErrorsFile) as jsonSysts:
 			ratesJSON = json.load(jsonRates)
 			systsJSON = json.load(jsonSysts)
-			datacard = singleCategoryTemplate
+			datacard = singleCategoryTemplate_top
+			if (analysisBranch[0] == "Z"): #Z channel
+				datacard += binAndProcess_Z 
+			else:
+				datacard += binAndProcess_H 
 			# ws
 			datacard = datacard.replace("@@QUARKONIA_STATE@@", quarkoniaState)
 			datacard = datacard.replace("@@CAT@@", selCategory)
 			datacard = datacard.replace("@@WS_DIR@@", wsDir)
 			datacard = datacard.replace("@@ANA_BRANCH@@", analysisBranch[0:-6])
 			if (analysisBranch[0] == "Z"): #Z channel
-				datacard = datacard.replace("@@SIGNAL_MODEL@@", "dcball")
-				datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
-				datacard = datacard.replace("@@PBCKG_MODEL@@", "dcballPeakingBackground")
-				with open('inputData/fitPlotFiles/signalMeanSigmaJSON.json', 'r') as inputJSONFile: 
+				datacard = datacard.replace("@@IS_Z@@", "#")
+				datacard = datacard.replace("@@SIGNAL_MODEL@@", "OniaSigZSig")
+				datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_HZToUpsilonPhoton_UntaggedTag_0_13TeV_bkgshape")
+				datacard = datacard.replace("@@PBCKG_MODEL@@", "OniaBkgZSig")
+				with open('inputData/fitPlotFiles2D/signalMeanSigmaJSON2D.json', 'r') as inputJSONFile: 
 					signalMeanSigmaJSON = json.load(inputJSONFile)
-					datacard = datacard.replace("@@MEAN_VAR@@", "mean_dcb_"+selCategory)
+					datacard = datacard.replace("@@MEAN_VAR@@", "mean_mHZ_"+selCategory)
 					datacard = datacard.replace("@@MEAN_VAL@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]))				
-					datacard = datacard.replace("@@MEAN_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]*0.005))				
+					with open('inputData/fitPlotFiles2D/systErrorShapes2D.json', 'r') as signalParamSystJSONFile: 
+						signalParamSystJSON = json.load(signalParamSystJSONFile)
+						datacard = datacard.replace("@@MEAN_ERR@@", str(signalParamSystJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["total"]["fittedMean"]/100.0*signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]))				
 					# datacard = datacard.replace("@@MEAN_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]*0.001))				
-					datacard = datacard.replace("@@SIGMA_VAR@@", "sigma_dcb_"+selCategory)
+					datacard = datacard.replace("@@SIGMA_VAR@@", "sigma_mHZ_"+selCategory)
 					datacard = datacard.replace("@@SIGMA_VAL@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]))
-					datacard = datacard.replace("@@SIGMA_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]*0.04))
+					with open('inputData/fitPlotFiles2D/systErrorShapes2D.json', 'r') as signalParamSystJSONFile: 
+						signalParamSystJSON = json.load(signalParamSystJSONFile)
+						datacard = datacard.replace("@@SIGMA_ERR@@", str(signalParamSystJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["total"]["fittedSigma"]/100.0*signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]))				
 					# datacard = datacard.replace("@@SIGMA_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]*0.02))
 			if (analysisBranch[0] == "H"): # Higgs channel
-				datacard = datacard.replace("@@SIGNAL_MODEL@@", "signal_model")
-				datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_hgg_UntaggedTag_0_13TeV_bkgshape")
-				datacard = datacard.replace("@@PBCKG_MODEL@@", "PeakingBackground_cb")
-				with open('inputData/fitPlotFiles/signalMeanSigmaJSON.json', 'r') as inputJSONFile: 
+				datacard = datacard.replace("@@IS_Z@@", "")
+				datacard = datacard.replace("@@SIGNAL_MODEL@@", "OniaSigHSig")
+				datacard = datacard.replace("@@BCKG_MODEL@@", "CMS_HZToUpsilonPhoton_UntaggedTag_0_13TeV_bkgshape")
+				datacard = datacard.replace("@@PBCKG_MODEL@@", "OniaBkgHSig")
+				with open('inputData/fitPlotFiles2D/signalMeanSigmaJSON2D.json', 'r') as inputJSONFile: 
 					signalMeanSigmaJSON = json.load(inputJSONFile)
-					datacard = datacard.replace("@@MEAN_VAR@@", "mean_Higgs_"+selCategory)
+					datacard = datacard.replace("@@MEAN_VAR@@", "mean_Higgs_mHZ_"+selCategory)
 					datacard = datacard.replace("@@MEAN_VAL@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]))				
-					datacard = datacard.replace("@@MEAN_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]*0.005))				
+					with open('inputData/fitPlotFiles2D/systErrorShapes2D.json', 'r') as signalParamSystJSONFile: 
+						signalParamSystJSON = json.load(signalParamSystJSONFile)
+						datacard = datacard.replace("@@MEAN_ERR@@", str(signalParamSystJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["total"]["fittedMean"]/100.0*signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]))				
 					# datacard = datacard.replace("@@MEAN_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedMean"]*0.001))				
-					datacard = datacard.replace("@@SIGMA_VAR@@", "sigma_cb_"+selCategory)
+					datacard = datacard.replace("@@SIGMA_VAR@@", "sigma_cb_mHZ_"+selCategory)
 					datacard = datacard.replace("@@SIGMA_VAL@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]))
-					datacard = datacard.replace("@@SIGMA_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]*0.06))
+					with open('inputData/fitPlotFiles2D/systErrorShapes2D.json', 'r') as signalParamSystJSONFile: 
+						signalParamSystJSON = json.load(signalParamSystJSONFile)
+						datacard = datacard.replace("@@SIGMA_ERR@@", str(signalParamSystJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["total"]["fittedSigma"]/100.0*signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]))				
 					# datacard = datacard.replace("@@SIGMA_ERR@@", str(signalMeanSigmaJSON[analysisBranch.split("Photon")[0]+quarkoniaState+"Photon"][selCategory]["default"]["fittedSigma"]*0.05))
 			# rates
 			datacard = datacard.replace("@@RATE_SIGNAL@@", getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "signal"))
-			datacard = datacard.replace("@@RATE_BCKG@@", "1.0")
-			# datacard = datacard.replace("@@RATE_BCKG@@", str((float(getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "bckg"))-float(getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "pbckg")))/float(getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "bckg"))))
-			datacard = datacard.replace("@@RATE_PBCKG@@", getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "pbckg"))
+			if (analysisBranch[0] == "Z"): # Z channel
+				with open('inputData/fitPlotFiles2D/ftestOutput2D/bckgNormalization.json', 'r') as inputJSONFile: 
+					bckgNormalization = json.load(inputJSONFile)
+					datacard = datacard.replace("@@RATE_BCKG@@", "1.0")
+					# datacard = datacard.replace("@@RATE_BCKG@@", str( bckgNormalization[analysisBranch][selCategory]["nTotalBCKG"] ))
+					# datacard = datacard.replace("@@RATE_BCKG@@", str( bckgNormalization[analysisBranch][selCategory]["nCombBCKG"] + bckgNormalization[analysisBranch][selCategory]["nPeakBCKG"] ))
+					# datacard = datacard.replace("@@RATE_PBCKG@@", str( bckgNormalization[analysisBranch][selCategory]["nPeakBCKG"] ))
+			if (analysisBranch[0] == "H"): # Higgs channel
+				with open('inputData/fitPlotFiles2D/ftestOutput2D/bckgNormalization.json', 'r') as inputJSONFile: 
+					bckgNormalization = json.load(inputJSONFile)
+					datacard = datacard.replace("@@RATE_BCKG@@", "1.0")
+					# datacard = datacard.replace("@@RATE_BCKG@@", str( bckgNormalization[analysisBranch][selCategory]["nTotalBCKG"] ))
+				datacard = datacard.replace("@@RATE_PBCKG@@", getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "pbckg"))
 			# datacard = datacard.replace("@@SYST_HZ_XSEC_SIGNAL@@", getRate(ratesJSON, analysisBranch, quarkoniaState, selCategory, "pbckg"))
 			# syst
 			#HZ_xs_sc
@@ -242,7 +284,7 @@ if __name__ == "__main__":
 	# C O N F I G
 	ratesFile = "inputData/evtsCountFiles/FinalYields.json"
 	systematicsErrorsFile = "inputData/evtsCountFiles/systErrorYields.json"
-	wsDir = "inputData/fitPlotFiles"
+	wsDir = "inputData/fitPlotFiles2D"
 
 	runCombine = True
 	# runCombine = False
@@ -250,17 +292,17 @@ if __name__ == "__main__":
 
 	print "\n-----> Datacard Maker - H/Z --> Upsilon + Photon" 
 
-	os.system("rm -rf outputDatacards_v03/*")
-	os.system("rm -rf outputLimits_v03/*")
+	os.system("rm -rf outputDatacards2D/*")
+	os.system("rm -rf outputLimits2D/*")
 
 	#ZToJPsiPhoton
-	makeDatacard("ZToJPsiPhoton", "", "Cat0")
-	makeDatacard("ZToJPsiPhoton", "", "Cat1")
-	makeDatacard("ZToJPsiPhoton", "", "Cat2")
-	makeDatacard("ZToJPsiPhoton", "", "Cat3")
+	# makeDatacard("ZToJPsiPhoton", "", "Cat0")
+	# makeDatacard("ZToJPsiPhoton", "", "Cat1")
+	# makeDatacard("ZToJPsiPhoton", "", "Cat2")
+	# makeDatacard("ZToJPsiPhoton", "", "Cat3")
 
 	#HToJPsiPhoton
-	makeDatacard("HToJPsiPhoton", "", "Cat0")
+	# makeDatacard("HToJPsiPhoton", "", "Cat0")
 
 
 	# ZToUpsilonPhoton - 1S
@@ -295,11 +337,11 @@ if __name__ == "__main__":
 	print "\n-----> Running Combine - H/Z --> Upsilon + Photon" 
 
 	# ZToJPsiPhoton
-	runDatacard("ZToJPsiPhoton", "", "Cat0", runCombine)
-	runDatacard("ZToJPsiPhoton", "", "Cat123", runCombine)
+	# runDatacard("ZToJPsiPhoton", "", "Cat0", runCombine)
+	# runDatacard("ZToJPsiPhoton", "", "Cat123", runCombine)
 
 	# HToJPsiPhoton
-	runDatacard("HToJPsiPhoton", "", "Cat0", runCombine)
+	# runDatacard("HToJPsiPhoton", "", "Cat0", runCombine)
 
 	# ZToUpsilonPhoton - 1S
 	runDatacard("ZToUpsilonPhoton", "1S", "Cat0", runCombine)
@@ -325,8 +367,8 @@ if __name__ == "__main__":
 
 	#### Dump limits
 	jsondata = json.dumps(limitsJSON, sort_keys=True, indent=2, separators=(',', ': '))
-	os.system("rm outputLimits_v03/limits.json")
-	with open("outputLimits_v03/limits.json", 'w') as out_file:
+	os.system("rm outputLimits2D/limits.json")
+	with open("outputLimits2D/limits.json", 'w') as out_file:
 		out_file.write(jsondata)
 	print "\n"+jsondata+"\n"
 
@@ -369,7 +411,7 @@ if __name__ == "__main__":
 
 	for limit in limitsToEvaluate:
 		# Z
-		BRLimits["ZToJPsiPhoton"][limit] = min(limitsJSON["ZToJPsiPhoton_Cat0"][limit], limitsJSON["ZToJPsiPhoton_Cat123"][limit])*xSecSM["ZToJPsiGamma_BR"]
+		# BRLimits["ZToJPsiPhoton"][limit] = min(limitsJSON["ZToJPsiPhoton_Cat0"][limit], limitsJSON["ZToJPsiPhoton_Cat123"][limit])*xSecSM["ZToJPsiGamma_BR"]
 		BRLimits["ZToUpsilon1SPhoton"][limit] = min(limitsJSON["ZToUpsilon1SPhoton_Cat0"][limit], limitsJSON["ZToUpsilon1SPhoton_Cat123"][limit])*xSecSM["ZToUpsilon1SPhoton_BR"]
 		BRLimits["ZToUpsilon2SPhoton"][limit] = min(limitsJSON["ZToUpsilon2SPhoton_Cat0"][limit], limitsJSON["ZToUpsilon2SPhoton_Cat123"][limit])*xSecSM["ZToUpsilon2SPhoton_BR"]
 		BRLimits["ZToUpsilon3SPhoton"][limit] = min(limitsJSON["ZToUpsilon3SPhoton_Cat0"][limit], limitsJSON["ZToUpsilon3SPhoton_Cat123"][limit])*xSecSM["ZToUpsilon3SPhoton_BR"]
@@ -377,7 +419,7 @@ if __name__ == "__main__":
 		BRLimits["ZToUpsilonPhoton"][limit] = ((BRLimits["ZToUpsilon1SPhoton"][limit]*xSecSM["Upsilon1SToMuMu_BR"])+(BRLimits["ZToUpsilon2SPhoton"][limit]*xSecSM["Upsilon2SToMuMu_BR"])+(BRLimits["ZToUpsilon3SPhoton"][limit]*xSecSM["Upsilon3SToMuMu_BR"]))/((xSecSM["ZToUpsilon1SPhoton_BR"]*xSecSM["Upsilon1SToMuMu_BR"])+(xSecSM["ZToUpsilon2SPhoton_BR"]*xSecSM["Upsilon2SToMuMu_BR"])+(xSecSM["ZToUpsilon3SPhoton_BR"]*xSecSM["Upsilon3SToMuMu_BR"]))
 
 		# Higgs
-		BRLimits["HToJPsiPhoton"][limit] = limitsJSON["HToJPsiPhoton_Cat0"][limit]*xSecSM["HToJPsiGamma_BR"]
+		# BRLimits["HToJPsiPhoton"][limit] = limitsJSON["HToJPsiPhoton_Cat0"][limit]*xSecSM["HToJPsiGamma_BR"]
 		BRLimits["HToUpsilon1SPhoton"][limit] = limitsJSON["HToUpsilon1SPhoton_Cat0"][limit]*xSecSM["HToUpsilon1SPhoton_BR"]
 		BRLimits["HToUpsilon2SPhoton"][limit] = limitsJSON["HToUpsilon2SPhoton_Cat0"][limit]*xSecSM["HToUpsilon2SPhoton_BR"]
 		BRLimits["HToUpsilon3SPhoton"][limit] = limitsJSON["HToUpsilon3SPhoton_Cat0"][limit]*xSecSM["HToUpsilon3SPhoton_BR"]
@@ -385,10 +427,12 @@ if __name__ == "__main__":
 		BRLimits["HToUpsilonPhoton"][limit] = ((BRLimits["HToUpsilon1SPhoton"][limit]*xSecSM["Upsilon1SToMuMu_BR"])+(BRLimits["HToUpsilon2SPhoton"][limit]*xSecSM["Upsilon2SToMuMu_BR"])+(BRLimits["HToUpsilon3SPhoton"][limit]*xSecSM["Upsilon3SToMuMu_BR"]))/((xSecSM["HToUpsilon1SPhoton_BR"]*xSecSM["Upsilon1SToMuMu_BR"])+(xSecSM["HToUpsilon2SPhoton_BR"]*xSecSM["Upsilon2SToMuMu_BR"])+(xSecSM["HToUpsilon3SPhoton_BR"]*xSecSM["Upsilon3SToMuMu_BR"]))
 
 	jsondataBRs = json.dumps(BRLimits, sort_keys=True, indent=2, separators=(',', ': '))
-	os.system("rm outputLimits_v03/BRLimits.json")
-	with open("outputLimits_v03/BRLimits.json", 'w') as out_file:
+	os.system("rm outputLimits2D/BRLimits.json")
+	with open("outputLimits2D/BRLimits.json", 'w') as out_file:
 		out_file.write(jsondataBRs)
 	print "\n"+jsondataBRs+"\n"
+
+	os.system("./dumpLatexTable_v01.py")
 
 
 

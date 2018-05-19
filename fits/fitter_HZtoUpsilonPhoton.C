@@ -100,14 +100,16 @@ void runZFit (json * effSigmaJSON, json * signalMeanSigmaJSON, string analysisBr
 	std::vector< std::future< zFitParams > > futureFits;
 	vector<string> shapeSystMask =  {
 						// "default",
-						"statRocCorError_UP",
-						"statRocCorError_DOWN",
-						"refRocCorError_UP",
-						"refRocCorError_DOWN",
-						"profMassRocCorError_UP",
-						"profMassRocCorError_DOWN",
-						"fitMassRocCorError_UP",
-						"fitMassRocCorError_DOWN",
+						// "statRocCorError_UP",
+						// "statRocCorError_DOWN",
+						// "refRocCorError_UP",
+						// "refRocCorError_DOWN",
+						// "profMassRocCorError_UP",
+						// "profMassRocCorError_DOWN",
+						// "fitMassRocCorError_UP",
+						// "fitMassRocCorError_DOWN",
+						"RocCorError_UP",
+						"RocCorError_DOWN",
 						"phoScale_stat_UP",
 						"phoScale_stat_DOWN",
 						"phoScale_syst_UP",
@@ -165,14 +167,16 @@ void runHFit (json * effSigmaJSON, json * signalMeanSigmaJSON, string analysisBr
 	std::vector< std::future< hFitParams > > futureFits;
 	vector<string> shapeSystMask =  {
 						// "default",
-						"statRocCorError_UP",
-						"statRocCorError_DOWN",
-						"refRocCorError_UP",
-						"refRocCorError_DOWN",
-						"profMassRocCorError_UP",
-						"profMassRocCorError_DOWN",
-						"fitMassRocCorError_UP",
-						"fitMassRocCorError_DOWN",
+						// "statRocCorError_UP",
+						// "statRocCorError_DOWN",
+						// "refRocCorError_UP",
+						// "refRocCorError_DOWN",
+						// "profMassRocCorError_UP",
+						// "profMassRocCorError_DOWN",
+						// "fitMassRocCorError_UP",
+						// "fitMassRocCorError_DOWN",
+						"RocCorError_UP",
+						"RocCorError_DOWN",
 						"phoScale_stat_UP",
 						"phoScale_stat_DOWN",
 						"phoScale_syst_UP",
@@ -215,35 +219,35 @@ void runHFit (json * effSigmaJSON, json * signalMeanSigmaJSON, string analysisBr
   	system("rm -fr fitPlotFiles/*");
 
 	// fitter
-	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat0");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat0");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat0");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat0");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat0");
+	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat0");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat0");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat0");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat0");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat0");
 
-	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat1");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat1");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat1");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat1");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat1");
+	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat1");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat1");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat1");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat1");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat1");
 
-	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat2");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat2");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat2");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat2");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat2");
+	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat2");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat2");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat2");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat2");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat2");
 
-	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat3");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat3");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat3");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat3");
-	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat3");
+	runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat3");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat3");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat3");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat3");
+	// runZFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat3");
 
-	// runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat0");
-	runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat0");
-	runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat0");
-	runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat0");
-	runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat0");
+	runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "JPsi", "", "Cat0");
+	// runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "", "Cat0");
+	// runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "1S", "Cat0");
+	// runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "2S", "Cat0");
+	// runHFit(&effSigmaJSON, &signalMeanSigmaJSON, "Upsilon", "3S", "Cat0");
 
 
 

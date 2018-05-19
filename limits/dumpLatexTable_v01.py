@@ -30,7 +30,8 @@ if __name__ == "__main__":
 	xSecSM["Upsilon2SToMuMu_BR"] = 1.9300E-02
 	xSecSM["Upsilon3SToMuMu_BR"] = 2.1800E-02
 
-	BRLimits = json.load(open("outputLimits_v03/BRLimits.json"))
+	# BRLimits = json.load(open("outputLimits_v03/BRLimits.json"))
+	BRLimits = json.load(open("outputLimits2D/BRLimits.json"))
 
 	# Only Upsilon Table 
 # 	latexBRLimits = """
@@ -241,12 +242,12 @@ SM Prediction $[\\times10^{-9}]$ & @@H_1S_SM@@  &  @@H_2S_SM@@  & @@H_3S_SM@@   
 # 	latexBRLimitsFull = latexBRLimitsFull.replace("@@H_NS_EXPC_MINUS@@", str(round(abs((BRLimits["HToUpsilonPhoton"]["expectedLimitMinus1Sigma"] - BRLimits["HToUpsilonPhoton"]["expectedLimit"]))/1E-4, 1)))
 
 
-	# os.system("rm outputLimits_v03/latexBRLimitsFull.txt")
-	# with open("outputLimits_v03/latexBRLimitsFull.txt", 'w') as out_file:
-	# 	out_file.write(latexBRLimitsFull)
-	# print "\n\n\n"
-	# print "#"*30
-	# print "\n\n"+latexBRLimitsFull+"\n"
+# 	os.system("rm outputLimits_v03/latexBRLimitsFull.txt")
+# 	with open("outputLimits_v03/latexBRLimitsFull.txt", 'w') as out_file:
+# 		out_file.write(latexBRLimitsFull)
+# 	print "\n\n\n"
+# 	print "#"*30
+# 	print "\n\n"+latexBRLimitsFull+"\n"
 
 
 

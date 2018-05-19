@@ -122,6 +122,9 @@ void runFit(RooAbsPdf *pdf, RooDataSet *data, double *NLL, int *stat_t, int MaxT
 
    RooFitResult *fitTest = pdf->fitTo(*data,RooFit::Save(1)
     ,RooFit::Minimizer("Minuit2","minimize"),RooFit::SumW2Error(kTRUE)); //FIXME
+
+
+
    stat = fitTest->status();
    minnll = fitTest->minNll();
    if (stat!=0) params_test->assignValueOnly(fitTest->randomizePars());
@@ -1144,7 +1147,30 @@ if(isFlashgg_){
     string strTemp = regex_replace(analysisBranch, regex("To"), "to")+"_"+HZToUpsilonPhotonCat_;
     strTemp = regex_replace(strTemp, regex("Photon"), "");
     // cout << "strTemp: " << strTemp << endl;
-    RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",evtCounts[strTemp][0]["Final Yield/Count"]);
+
+    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",evtCounts[strTemp][0]["Final Yield/Count"]);
+    double totalCombBckgYeild = evtCounts[strTemp][0]["Final Yield/Count"];
+    double totalPeakBckgYeild = 0;
+
+
+    if (analysisBranch[3] == 'J') { //JPsi analysis
+      totalPeakBckgYeild = evtCounts[strTemp][2]["Final Yield/Count"];
+      // cout << "evtCounts - 0: " << evtCounts[strTemp][0]["Final Yield/Count"];
+      // cout << "evtCounts - 1: " << evtCounts[strTemp][1]["Final Yield/Count"];
+      // cout << "evtCounts - 2: " << evtCounts[strTemp][2]["Final Yield/Count"];
+    }
+    if (analysisBranch[3] == 'U') { //Upsilon analysis
+      totalPeakBckgYeild = evtCounts[strTemp][5]["Final Yield/Count"];
+      // cout << "evtCounts - 0: " << evtCounts[strTemp][0]["Final Yield/Count"];
+      // cout << "evtCounts - 1: " << evtCounts[strTemp][1]["Final Yield/Count"];
+      // cout << "evtCounts - 2: " << evtCounts[strTemp][2]["Final Yield/Count"];
+      // cout << "evtCounts - 3: " << evtCounts[strTemp][3]["Final Yield/Count"];
+      // cout << "evtCounts - 4: " << evtCounts[strTemp][4]["Final Yield/Count"];
+    }
+
+    // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",totalCombBckgYeild - totalPeakBckgYeild);
+    RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",data->sumEntries() - totalPeakBckgYeild);
+    
     // RooRealVar nBackground(Form("CMS_hgg_%s_%s_bkgshape_norm",catname.c_str(),ext.c_str()),"nbkg",evtCounts["ZtoUpsilonPhoton_Cat0"][0]["Final Yield/Count"]);
 
 			//nBackground.removeRange(); // bug in roofit will break combine until dev branch brought in
