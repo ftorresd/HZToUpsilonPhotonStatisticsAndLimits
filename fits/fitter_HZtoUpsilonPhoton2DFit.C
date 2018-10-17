@@ -243,6 +243,7 @@ void runHFit2D (json * effSigmaJSON2D, json * signalMeanSigmaJSON2D, string anal
   	setTDRStyle();
 	// system("rm -fr fitPlotFiles; mkdir fitPlotFiles");
   	system("rm -fr fitPlotFiles/*");
+  	system("rm -fr fitPlotFiles2D/*");
 
 	// fitter
 	// Z

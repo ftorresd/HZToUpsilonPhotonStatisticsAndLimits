@@ -93,3 +93,6 @@ cat output_ZToUpsilonPhoton_Cat3.txt
 mv *.root ftestOutput2D/.
 mv outdir* ftestOutput2D/.
 mv output_*.txt ftestOutput2D/.
+
+
+find ftestOutput2D/ -type d -exec cp plugins/index.php {} \;

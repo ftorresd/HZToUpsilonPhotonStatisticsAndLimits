@@ -133,5 +133,88 @@ with open('fitPlotFiles2D/systErrorShapes2D.json', 'w') as outputJSONFile:
 
 
 os.system("cat fitPlotFiles2D/systErrorShapes2D.json")
-# os.system("cat fitPlotFiles/signalMeanSigmaJSON.json")
+
+
+ShapeSystLatexTemplate = r"""
+
+\begin{tabular}{cl|c|c|c|c|c|}
+\cline{3-7}
+\multicolumn{1}{l}{}                      &      & \multicolumn{4}{c|}{Z$\rightarrow \Upsilon(nS) + \gamma$} & H$\rightarrow \Upsilon(nS) + \gamma$ \\ \cline{3-7}
+\multicolumn{1}{l}{}                      &                     & \textbf{Cat0}  & \textbf{Cat1}  & \textbf{Cat2}  & \textbf{Cat3} & \textbf{Cat0}        \\ \hline
+
+
+\multicolumn{1}{|c|}{\multirow{8}{*}{$\Upsilon(1S)$}} & \multicolumn{6}{c|}{\textbf{Mean}} \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_1S_MEAN_CAT0__\% & __Z_MUON_1S_MEAN_CAT1__\% & __Z_MUON_1S_MEAN_CAT2__\% & __Z_MUON_1S_MEAN_CAT3__\% & __H_MUON_1S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_1S_MEAN_CAT0__\% & __Z_PHOTON_1S_MEAN_CAT1__\% & __Z_PHOTON_1S_MEAN_CAT2__\% & __Z_PHOTON_1S_MEAN_CAT3__\% & __H_PHOTON_1S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_1S_MEAN_CAT0__\% & __Z_TOTAL_1S_MEAN_CAT1__\% & __Z_TOTAL_1S_MEAN_CAT2__\% & __Z_TOTAL_1S_MEAN_CAT3__\% & __H_TOTAL_1S_MEAN_CAT0__\% \\ \cline{2-7} 
+
+
+\multicolumn{1}{|c|}{}                    & \multicolumn{6}{c|}{\textbf{Sigma}}            \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_1S_SIGMA_CAT0__\% & __Z_MUON_1S_SIGMA_CAT1__\% & __Z_MUON_1S_SIGMA_CAT2__\% & __Z_MUON_1S_SIGMA_CAT3__\% & __H_MUON_1S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_1S_SIGMA_CAT0__\% & __Z_PHOTON_1S_SIGMA_CAT1__\% & __Z_PHOTON_1S_SIGMA_CAT2__\% & __Z_PHOTON_1S_SIGMA_CAT3__\% & __H_PHOTON_1S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_1S_SIGMA_CAT0__\% & __Z_TOTAL_1S_SIGMA_CAT1__\% & __Z_TOTAL_1S_SIGMA_CAT2__\% & __Z_TOTAL_1S_SIGMA_CAT3__\% & __H_TOTAL_1S_SIGMA_CAT0__\% \\ \hline \hline 
+
+
+
+\multicolumn{1}{|c|}{\multirow{8}{*}{$\Upsilon(2S)$}} & \multicolumn{6}{c|}{\textbf{Mean}} \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_2S_MEAN_CAT0__\% & __Z_MUON_2S_MEAN_CAT1__\% & __Z_MUON_2S_MEAN_CAT2__\% & __Z_MUON_2S_MEAN_CAT3__\% & __H_MUON_2S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_2S_MEAN_CAT0__\% & __Z_PHOTON_2S_MEAN_CAT1__\% & __Z_PHOTON_2S_MEAN_CAT2__\% & __Z_PHOTON_2S_MEAN_CAT3__\% & __H_PHOTON_2S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_2S_MEAN_CAT0__\% & __Z_TOTAL_2S_MEAN_CAT1__\% & __Z_TOTAL_2S_MEAN_CAT2__\% & __Z_TOTAL_2S_MEAN_CAT3__\% & __H_TOTAL_2S_MEAN_CAT0__\% \\ \cline{2-7} 
+
+
+\multicolumn{1}{|c|}{}                    & \multicolumn{6}{c|}{\textbf{Sigma}}            \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_2S_SIGMA_CAT0__\% & __Z_MUON_2S_SIGMA_CAT1__\% & __Z_MUON_2S_SIGMA_CAT2__\% & __Z_MUON_2S_SIGMA_CAT3__\% & __H_MUON_2S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_2S_SIGMA_CAT0__\% & __Z_PHOTON_2S_SIGMA_CAT1__\% & __Z_PHOTON_2S_SIGMA_CAT2__\% & __Z_PHOTON_2S_SIGMA_CAT3__\% & __H_PHOTON_2S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_2S_SIGMA_CAT0__\% & __Z_TOTAL_2S_SIGMA_CAT1__\% & __Z_TOTAL_2S_SIGMA_CAT2__\% & __Z_TOTAL_2S_SIGMA_CAT3__\% & __H_TOTAL_2S_SIGMA_CAT0__\% \\ \hline \hline 
+
+
+
+\multicolumn{1}{|c|}{\multirow{8}{*}{$\Upsilon(3S)$}} & \multicolumn{6}{c|}{\textbf{Mean}}  \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_3S_MEAN_CAT0__\% & __Z_MUON_3S_MEAN_CAT1__\% & __Z_MUON_3S_MEAN_CAT2__\% & __Z_MUON_3S_MEAN_CAT3__\% & __H_MUON_3S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_3S_MEAN_CAT0__\% & __Z_PHOTON_3S_MEAN_CAT1__\% & __Z_PHOTON_3S_MEAN_CAT2__\% & __Z_PHOTON_3S_MEAN_CAT3__\% & __H_PHOTON_3S_MEAN_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_3S_MEAN_CAT0__\% & __Z_TOTAL_3S_MEAN_CAT1__\% & __Z_TOTAL_3S_MEAN_CAT2__\% & __Z_TOTAL_3S_MEAN_CAT3__\% & __H_TOTAL_3S_MEAN_CAT0__\% \\ \cline{2-7} 
+
+
+\multicolumn{1}{|c|}{}                    & \multicolumn{6}{c|}{\textbf{Sigma}}            \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Muon Unc.           & __Z_MUON_3S_SIGMA_CAT0__\% & __Z_MUON_3S_SIGMA_CAT1__\% & __Z_MUON_3S_SIGMA_CAT2__\% & __Z_MUON_3S_SIGMA_CAT3__\% & __H_MUON_3S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & Photon Unc.         & __Z_PHOTON_3S_SIGMA_CAT0__\% & __Z_PHOTON_3S_SIGMA_CAT1__\% & __Z_PHOTON_3S_SIGMA_CAT2__\% & __Z_PHOTON_3S_SIGMA_CAT3__\% & __H_PHOTON_3S_SIGMA_CAT0__\% \\ \cline{2-7}
+\multicolumn{1}{|c|}{}                    & \textbf{Total Unc.} & __Z_TOTAL_3S_SIGMA_CAT0__\% & __Z_TOTAL_3S_SIGMA_CAT1__\% & __Z_TOTAL_3S_SIGMA_CAT2__\% & __Z_TOTAL_3S_SIGMA_CAT3__\% & __H_TOTAL_3S_SIGMA_CAT0__\% \\ \hline \hline 
+\end{tabular}
+"""
+
+def getShapeSystError(b, s, u, v, c):
+	branch = b+"ToUpsilon"+u+"Photon"
+	cat = "Cat"+c[-1]
+	source = s.lower()
+	var = "fitted"+v[0]+(v[1:-1]).lower()+(v[-1]).lower()
+	if cat in outputJSON[branch].keys():
+		return str( round(outputJSON[branch][cat][source][var], 2) )
+	else:
+		return ""
+
+
+ShapeSystLatex = ShapeSystLatexTemplate
+
+boson = ["Z", "H"] 
+source = ["MUON", "PHOTON", "TOTAL"]
+upsilonState = ["1S", "2S", "3S"]
+variable = ["MEAN", "SIGMA"]
+category = ["CAT0", "CAT1", "CAT2", "CAT3"]
+
+for b in boson:
+	for c in category:
+		for s in source:
+			for u in upsilonState:
+				for v in variable:
+					ShapeSystLatex = ShapeSystLatex.replace("__"+b+"_"+s+"_"+u+"_"+v+"_"+c+"__", getShapeSystError(b, s, u, v, c))
+
+
+with open('fitPlotFiles2D/FinalSystShapeLatex.txt', 'w') as outputLATEXFile:  
+    outputLATEXFile.write(ShapeSystLatex)
+
+
+os.system("cat fitPlotFiles2D/FinalSystShapeLatex.txt")
+
+
+
 

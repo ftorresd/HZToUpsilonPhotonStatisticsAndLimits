@@ -478,7 +478,8 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal->SetTextFont(52);
 		latexSignal->SetTextSize(0.04);
 		latexSignal->SetTextAlign(11);
-		latexSignal->DrawLatex(.25+labelShift, 0.93, "Preliminary");
+		// latexSignal->DrawLatex(.25+labelShift, 0.93, "Preliminary");
+		latexSignal->DrawLatex(.25+labelShift, 0.93, "Simulation");
 		latexSignal->SetTextFont(42);
 		latexSignal->SetTextSize(0.04);
 		latexSignal->SetTextAlign(31);
@@ -543,7 +544,8 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal_mMuMNU->SetTextFont(52);
 		latexSignal_mMuMNU->SetTextSize(0.04);
 		latexSignal_mMuMNU->SetTextAlign(11);
-		latexSignal_mMuMNU->DrawLatex(.25+labelShift, 0.93, "Preliminary");
+		// latexSignal_mMuMNU->DrawLatex(.25+labelShift, 0.93, "Preliminary");
+		latexSignal_mMuMNU->DrawLatex(.25+labelShift, 0.93, "Simulation");
 		latexSignal_mMuMNU->SetTextFont(42);
 		latexSignal_mMuMNU->SetTextSize(0.04);
 		latexSignal_mMuMNU->SetTextAlign(31);
@@ -689,7 +691,8 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground->SetTextFont(52);
 		latexPeakingBackground->SetTextSize(0.04);
 		latexPeakingBackground->SetTextAlign(11);
-		latexPeakingBackground->DrawLatex(.25, 0.93, "Preliminary");
+		// latexPeakingBackground->DrawLatex(.25, 0.93, "Preliminary");
+		latexPeakingBackground->DrawLatex(.25, 0.93, "Simulation");
 		latexPeakingBackground->SetTextFont(42);
 		latexPeakingBackground->SetTextSize(0.04);
 		latexPeakingBackground->SetTextAlign(31);
@@ -744,7 +747,8 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground_mMuMNU->SetTextFont(52);
 		latexPeakingBackground_mMuMNU->SetTextSize(0.04);
 		latexPeakingBackground_mMuMNU->SetTextAlign(11);
-		latexPeakingBackground_mMuMNU->DrawLatex(.25, 0.93, "Preliminary");
+		// latexPeakingBackground_mMuMNU->DrawLatex(.25, 0.93, "Preliminary");
+		latexPeakingBackground_mMuMNU->DrawLatex(.25, 0.93, "Simulation");
 		latexPeakingBackground_mMuMNU->SetTextFont(42);
 		latexPeakingBackground_mMuMNU->SetTextSize(0.04);
 		latexPeakingBackground_mMuMNU->SetTextAlign(31);
