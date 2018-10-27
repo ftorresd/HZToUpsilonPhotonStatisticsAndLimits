@@ -180,57 +180,57 @@ void runHFit2D (json * effSigmaJSON2D, json * signalMeanSigmaJSON2D, string anal
 
   	signalFitParams =  HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(effSigmaJSON2D, signalMeanSigmaJSON2D, analysisBranch, quarkoniaState, selCategory, signalFitParams, fitPar);
 
-	// // cout << "####################################################" << endl;
-	// hFitParams fpTemp1 = signalFitParams;
-	// // cout << "mean_Higgs: " << fpTemp1.mean_Higgs << endl;
-	// // cout << "sigma_cb: " << fpTemp1.sigma_cb << endl;
-	// // cout << "n: " << fpTemp1.n << endl;
-	// // cout << "alpha_cb: " << fpTemp1.alpha_cb << endl;
-	// // cout << "sigma_gauss: " << fpTemp1.sigma_gauss << endl;
-	// // cout << "cb_fraction: " << fpTemp1.cb_fraction << endl;
-	// // cout << "####################################################" << endl;
+	// cout << "####################################################" << endl;
+	hFitParams fpTemp1 = signalFitParams;
+	// cout << "mean_Higgs: " << fpTemp1.mean_Higgs << endl;
+	// cout << "sigma_cb: " << fpTemp1.sigma_cb << endl;
+	// cout << "n: " << fpTemp1.n << endl;
+	// cout << "alpha_cb: " << fpTemp1.alpha_cb << endl;
+	// cout << "sigma_gauss: " << fpTemp1.sigma_gauss << endl;
+	// cout << "cb_fraction: " << fpTemp1.cb_fraction << endl;
+	// cout << "####################################################" << endl;
 
-	// std::vector< std::future< hFitParams > > futureFits;
-	// vector<string> shapeSystMask =  {
-	// 					// "default",
-	// 					// "statRocCorError_UP",
-	// 					// "statRocCorError_DOWN",
-	// 					// "refRocCorError_UP",
-	// 					// "refRocCorError_DOWN",
-	// 					// "profMassRocCorError_UP",
-	// 					// "profMassRocCorError_DOWN",
-	// 					// "fitMassRocCorError_UP",
-	// 					// "fitMassRocCorError_DOWN",
-	// 					"RocCorError_UP",
-	// 					"RocCorError_DOWN",
-	// 					"phoScale_stat_UP",
-	// 					"phoScale_stat_DOWN",
-	// 					"phoScale_syst_UP",
-	// 					"phoScale_syst_DOWN",
-	// 					"phoScale_gain_UP",
-	// 					"phoScale_gain_DOWN",
-	// 					"phoResol_rho_UP",
-	// 					"phoResol_rho_DOWN",
-	// 					"phoResol_phi_UP",
-	// 					"phoResol_phi_DOWN",
-	// 				};
-	// auto itShapeSystMask = shapeSystMask.begin();
-	// while(itShapeSystMask != shapeSystMask.end()) {
-	// 	futureFits.push_back(std::async(HToJPsiUpsilonPhotonSignalAndBackgroundFit2D, effSigmaJSON2D, signalMeanSigmaJSON2D, analysisBranch, quarkoniaState, selCategory, signalFitParams, fitPar, true, false,  *itShapeSystMask));
-	// 	futureFits.push_back(std::async(HToJPsiUpsilonPhotonSignalAndBackgroundFit2D, effSigmaJSON2D, signalMeanSigmaJSON2D, analysisBranch, quarkoniaState, selCategory, signalFitParams, fitPar, false, true,  *itShapeSystMask));
-	// 	itShapeSystMask++;
-	// }
-	// for(auto &e : futureFits) {
-	// 	// cout << "####################################################" << endl;
-	// 	hFitParams fpTemp = e.get();
-	// 	// cout << "mean_Higgs: " << fpTemp.mean_Higgs << endl;
-	// 	// cout << "sigma_cb: " << fpTemp.sigma_cb << endl;
-	// 	// cout << "n: " << fpTemp.n << endl;
-	// 	// cout << "alpha_cb: " << fpTemp.alpha_cb << endl;
-	// 	// cout << "sigma_gauss: " << fpTemp.sigma_gauss << endl;
-	// 	// cout << "cb_fraction: " << fpTemp.cb_fraction << endl;
-	// 	// cout << "####################################################" << endl;
-	// }	
+	std::vector< std::future< hFitParams > > futureFits;
+	vector<string> shapeSystMask =  {
+						// "default",
+						// "statRocCorError_UP",
+						// "statRocCorError_DOWN",
+						// "refRocCorError_UP",
+						// "refRocCorError_DOWN",
+						// "profMassRocCorError_UP",
+						// "profMassRocCorError_DOWN",
+						// "fitMassRocCorError_UP",
+						// "fitMassRocCorError_DOWN",
+						"RocCorError_UP",
+						"RocCorError_DOWN",
+						"phoScale_stat_UP",
+						"phoScale_stat_DOWN",
+						"phoScale_syst_UP",
+						"phoScale_syst_DOWN",
+						"phoScale_gain_UP",
+						"phoScale_gain_DOWN",
+						"phoResol_rho_UP",
+						"phoResol_rho_DOWN",
+						"phoResol_phi_UP",
+						"phoResol_phi_DOWN",
+					};
+	auto itShapeSystMask = shapeSystMask.begin();
+	while(itShapeSystMask != shapeSystMask.end()) {
+		futureFits.push_back(std::async(HToJPsiUpsilonPhotonSignalAndBackgroundFit2D, effSigmaJSON2D, signalMeanSigmaJSON2D, analysisBranch, quarkoniaState, selCategory, signalFitParams, fitPar, true, false,  *itShapeSystMask));
+		futureFits.push_back(std::async(HToJPsiUpsilonPhotonSignalAndBackgroundFit2D, effSigmaJSON2D, signalMeanSigmaJSON2D, analysisBranch, quarkoniaState, selCategory, signalFitParams, fitPar, false, true,  *itShapeSystMask));
+		itShapeSystMask++;
+	}
+	for(auto &e : futureFits) {
+		// cout << "####################################################" << endl;
+		hFitParams fpTemp = e.get();
+		// cout << "mean_Higgs: " << fpTemp.mean_Higgs << endl;
+		// cout << "sigma_cb: " << fpTemp.sigma_cb << endl;
+		// cout << "n: " << fpTemp.n << endl;
+		// cout << "alpha_cb: " << fpTemp.alpha_cb << endl;
+		// cout << "sigma_gauss: " << fpTemp.sigma_gauss << endl;
+		// cout << "cb_fraction: " << fpTemp.cb_fraction << endl;
+		// cout << "####################################################" << endl;
+	}	
 }
 
 
@@ -247,25 +247,25 @@ void runHFit2D (json * effSigmaJSON2D, json * signalMeanSigmaJSON2D, string anal
 
 	// fitter
 	// Z
-	// // runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat0");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat0");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat0");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat0");
+	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat0");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat0");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat0");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat0");
 
-	// // runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat1");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat1");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat1");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat1");
+	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat1");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat1");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat1");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat1");
 
-	// // runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat2");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat2");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat2");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat2");
+	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat2");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat2");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat2");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat2");
 
-	// // runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat3");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat3");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat3");
-	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat3");
+	// runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat3");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "1S", "Cat3");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "2S", "Cat3");
+	runZFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "3S", "Cat3");
 
 	// Higgs
 	// runHFit2D(&effSigmaJSON2D, &signalMeanSigmaJSON2D, "Upsilon", "", "Cat0");

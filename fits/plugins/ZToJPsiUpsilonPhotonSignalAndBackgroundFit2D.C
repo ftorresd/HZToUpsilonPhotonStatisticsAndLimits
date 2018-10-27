@@ -140,11 +140,15 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	////////////////////////////////////////////////////////////////////////////////////
 	// SIGNAL MODEL
 	// DCBall - Z
-	RooRealVar mean_mHZ(("mean_mHZ_"+selCategory).c_str(), "Mean" ,91.1876,70,120) ;
-	RooRealVar sigma_mHZ(("sigma_mHZ_"+selCategory).c_str(), "Width" ,  2., 0.6, 1.) ;
-	RooRealVar n1_mHZ("n1_mHZ","", 0.5, 0.1, 50.);//dCBPowerL
+	RooRealVar mean_mHZ(("mean_mHZ_"+selCategory).c_str(), "Mean" ,91.1876, 70, 120) ;
+	// RooRealVar sigma_mHZ(("sigma_mHZ_"+selCategory).c_str(), "Width" ,  2., 0.6, 1.) ;
+	RooRealVar sigma_mHZ(("sigma_mHZ_"+selCategory).c_str(), "Width" ,  2., 0.6, 2.) ;
+	
+	// RooRealVar n1_mHZ("n1_mHZ","", 0.5, 0.1, 50.);//dCBPowerL
+	RooRealVar n1_mHZ("n1_mHZ","", 0.5, 0.1, 3.);//dCBPowerL
+	RooRealVar alpha1_mHZ("alpha1_mHZ","", 3., 0.0, 3.);//dCBCutL
+
 	RooRealVar n2_mHZ("n2_mHZ","", 0.5, 0.1, 50.);//dCBPowerR
-	RooRealVar alpha1_mHZ("alpha1_mHZ","", 3., 0.0, 10.);//dCBCutL
 	RooRealVar alpha2_mHZ("alpha2_mHZ","", 3., 0.0, 10.);//dCBCutR
 
 	double upsilonMassPDG = 9460.30/1000.;
@@ -152,10 +156,14 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	if (quarkoniaState == "3S") upsilonMassPDG = 10355.2/1000.;
 	
 	RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG, 8.5, 11.) ;
-	RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 0.3) ;
-	RooRealVar n1_mMuMNU("n1_mMuMNU","", 1, 0, 50);//dCBPowerL
+	// RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG) ;
+	RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 4) ;
+	// RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 0.1) ;
+	
+	RooRealVar n1_mMuMNU("n1_mMuMNU","", 1, 0, 5);//dCBPowerL
+	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 1, 0, 3);//dCBCutL
+
 	RooRealVar n2_mMuMNU("n2_mMuMNU","", 1, 0, 50);//dCBPowerR
-	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 3, 0, 10);//dCBCutL
 	RooRealVar alpha2_mMuMNU("alpha2_mMuMNU","", 3, 0, 10);//dCBCutR
 
 	////////////////////////////////////////////////////////////////////////
@@ -631,11 +639,20 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		n2_mMuMNU.setConstant(true);
 	}
 
-	RooDoubleCB dcball_mHZ("dcball_signal_mHZ", "dcball_mHZ", mHZ, mean_mHZ,sigma_mHZ,alpha1_mHZ,n1_mHZ,alpha2_mHZ,n2_mHZ);
-	RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
 
+	// mHZ - DCB
+	// RooDoubleCB dcball_mHZ("dcball_signal_mHZ", "dcball_mHZ", mHZ, mean_mHZ,sigma_mHZ,alpha1_mHZ,n1_mHZ,alpha2_mHZ,n2_mHZ);
+	// mHZ - CB
+	RooCBShape dcball_mHZ("dcball_signal_mHZ", "dcball_mHZ", mHZ, mean_mHZ,sigma_mHZ,alpha1_mHZ,n1_mHZ);
+
+	// mMuMNU - DCB
+	// RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
+	// mMuMNU - CB
+	RooCBShape dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU);
+	// mMuMNU - Gaussian
 	// RooGaussian dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU);
 	
+	// 2D pdf
 	RooProdPdf OniaSigZSig  ("OniaSigZSig",   "OniaSigZSig  ", RooArgSet(dcball_mMuMNU, dcball_mHZ));  
 
 
@@ -684,7 +701,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 	
 
-	// if (!doShapeSyst) {
+	if (!doShapeSyst) {
 	  	////////////////////////////////////////////////////////////////////////////////////
 	  	// SIGNAL PLOT
 		auto cSignal = new TCanvas("c2","c2",1050*2.0,750*2.0);
@@ -741,7 +758,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		}
 		delete xframeSignal;
 
-	if (!doShapeSyst) {
+	// if (!doShapeSyst) {
 		// mMuMNU Plot
 		auto cSignal_mMuMNU = new TCanvas("c2_mMuMNU","c2_mMuMNU",1050*2.0,750*2.0);
 		gPad->SetLeftMargin(0.17); 

@@ -141,8 +141,8 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	// CB params
 	RooRealVar mean_Higgs_mHZ(("mean_Higgs_mHZ_"+selCategory).c_str(), "Mean" ,125.,100.,150.) ;
 	RooRealVar sigma_cb_mHZ(("sigma_cb_mHZ_"+selCategory).c_str(), "Width", 1.5, 1, 2) ;
-	RooRealVar n_mHZ("n_mHZ","", 1, 0, 1);
-	RooRealVar alpha_cb_mHZ("alpha_cb_mHZ","", 1, 1, 4);
+	RooRealVar n_mHZ("n_mHZ","", 1, 0, 2);
+	RooRealVar alpha_cb_mHZ("alpha_cb_mHZ","", 0, 0, 2.);
 	RooRealVar sigma_gauss_mHZ("sigma_gauss_mHZ", "Width" ,  1., 0, 4) ;
 	RooRealVar cb_fraction_mHZ("cb_fraction_mHZ", "cb_fraction",  0.9, .0, 1.0);
 
@@ -152,9 +152,9 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	
 	RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG, 8.5, 11.) ;
 	RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 0.3) ;
-	RooRealVar n1_mMuMNU("n1_mMuMNU","", 5, 3, 10);//dCBPowerL
-	RooRealVar n2_mMuMNU("n2_mMuMNU","", 5, 3, 10);//dCBPowerR
-	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 1, 0, 10);//dCBCutL
+	RooRealVar n1_mMuMNU("n1_mMuMNU","", 5, 3.5, 6);//dCBPowerL
+	RooRealVar n2_mMuMNU("n2_mMuMNU","", 5, 3.5, 6);//dCBPowerR
+	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 1, 1.2, 1.5);//dCBCutL
 	RooRealVar alpha2_mMuMNU("alpha2_mMuMNU","", 1, 0, 10);//dCBCutR
 
 
@@ -243,25 +243,6 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 	hFitParams hFitTemp = hFit;
 	if (doShapeSystMean) {
-		// mean_mHZ.setVal(hFitTemp.mean_mHZ);
-		// // mean_mHZ.setConstant(true);
-
-		// sigma_mHZ.setVal(hFitTemp.sigma_mHZ);
-		// sigma_mHZ.setConstant(true);
-
-		// alpha1_mHZ.setVal(hFitTemp.alpha1_mHZ);
-		// alpha1_mHZ.setConstant(true);
-
-		// n1_mHZ.setVal(hFitTemp.n1_mHZ);
-		// n1_mHZ.setConstant(true);
-
-		// alpha2_mHZ.setVal(hFitTemp.alpha2_mHZ);
-		// alpha2_mHZ.setConstant(true);
-
-		// n2_mHZ.setVal(hFitTemp.n2_mHZ);
-		// n2_mHZ.setConstant(true);
-
-
 		mean_Higgs_mHZ.setVal(hFitTemp.mean_Higgs_mHZ);
 		// mean_Higgs_mHZ.setConstant(true);
 
@@ -299,26 +280,6 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		n2_mMuMNU.setConstant(true);
 	}
 	if (doShapeSystWidth) {
-
-		// mean_mHZ.setVal(hFitTemp.mean_mHZ);
-		// mean_mHZ.setConstant(true);
-
-		// sigma_mHZ.setVal(hFitTemp.sigma_mHZ);
-		// // sigma_mHZ.setConstant(true);
-
-		// alpha1_mHZ.setVal(hFitTemp.alpha1_mHZ);
-		// alpha1_mHZ.setConstant(true);
-
-		// n1_mHZ.setVal(hFitTemp.n1_mHZ);
-		// n1_mHZ.setConstant(true);
-
-		// alpha2_mHZ.setVal(hFitTemp.alpha2_mHZ);
-		// alpha2_mHZ.setConstant(true);
-
-		// n2_mHZ.setVal(hFitTemp.n2_mHZ);
-		// n2_mHZ.setConstant(true);
-
-
 		mean_Higgs_mHZ.setVal(hFitTemp.mean_Higgs_mHZ);
 		mean_Higgs_mHZ.setConstant(true);
 
@@ -326,7 +287,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		// sigma_cb_mHZ.setConstant(true);
 
 		sigma_gauss_mHZ.setVal(hFitTemp.sigma_gauss_mHZ);
-		// sigma_gauss_mHZ.setConstant(true);
+		sigma_gauss_mHZ.setConstant(true);
 
 		alpha_cb_mHZ.setVal(hFitTemp.alpha_cb_mHZ);
 		alpha_cb_mHZ.setConstant(true);
@@ -426,7 +387,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	hFitTemp.n2_mMuMNU = n2_mMuMNU.getValV();
 
 
-	// if (!doShapeSyst) {
+	if (!doShapeSyst) {
 	  	////////////////////////////////////////////////////////////////////////////////////
 	  	// SIGNAL PLOT
 
@@ -492,7 +453,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".pdf").c_str());
 		}
 
-	if (!doShapeSyst) {
+	// if (!doShapeSyst) {
 	  	// dimuon
 		auto cSignal_mMuMNU = new TCanvas("cSignal_mMuMNU","cSignal_mMuMNU",1050*2.0,750*2.0);
 		gPad->SetLeftMargin(0.17); 
@@ -606,9 +567,9 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	////////////////////////////////////////////////////////////////////////////////////
 	// PEAKING BACKGROUND
 	RooRealVar mean_cbPeakingBackground("mean_cbPeakingBackground", "Mean" , 125, 100, 150) ;
-	RooRealVar sigma_cbPeakingBackground("sigma_cbPeakingBackground", "Width" ,  1., 0., 1.5) ;
-	RooRealVar alphaPeakingBackground("alphaPeakingBackground","", 3., 5, 10);
-	RooRealVar nPeakingBackground("nPeakingBackground","", 0.5, 3, 10.);
+	RooRealVar sigma_cbPeakingBackground("sigma_cbPeakingBackground", "Width" ,  2., 0.5, 4.) ;
+	RooRealVar alphaPeakingBackground("alphaPeakingBackground","", 3., 0.1, 50.);
+	RooRealVar nPeakingBackground("nPeakingBackground","", 0.5, 0.1, 50.);
 
 	RooCBShape PeakingBackground_cb("PeakingBackground_cb", "Crystal Ball Peaking Background component", mHZ, mean_cbPeakingBackground, sigma_cbPeakingBackground, alphaPeakingBackground, nPeakingBackground);
 
