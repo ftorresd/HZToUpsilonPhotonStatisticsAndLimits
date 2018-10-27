@@ -155,16 +155,26 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	if (quarkoniaState == "2S") upsilonMassPDG = 10023.26/1000.;
 	if (quarkoniaState == "3S") upsilonMassPDG = 10355.2/1000.;
 	
-	RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG, 8.5, 11.) ;
-	// RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG) ;
-	RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 4) ;
-	// RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 0.1) ;
+	// RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG, 8.5, 11.) ;
+	// // RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG) ;
+	// RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 4) ;
+	// // RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 0.1) ;
 	
-	RooRealVar n1_mMuMNU("n1_mMuMNU","", 1, 0, 5);//dCBPowerL
-	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 1, 0, 3);//dCBCutL
+	// RooRealVar n1_mMuMNU("n1_mMuMNU","", 1, 0, 5);//dCBPowerL
+	// RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 1, 0, 3);//dCBCutL
 
-	RooRealVar n2_mMuMNU("n2_mMuMNU","", 1, 0, 50);//dCBPowerR
+	// RooRealVar n2_mMuMNU("n2_mMuMNU","", 1, 0, 50);//dCBPowerR
+	// RooRealVar alpha2_mMuMNU("alpha2_mMuMNU","", 3, 0, 10);//dCBCutR
+
+
+	RooRealVar mean_mMuMNU(("mean_mMuMNU_"+selCategory).c_str(), "Mean" , upsilonMassPDG, 8.5, 11.) ;
+	RooRealVar sigma_mMuMNU(("sigma_mMuMNU_"+selCategory).c_str(), "Width" ,  0.1, 0., 1) ;
+	RooRealVar n1_mMuMNU("n1_mMuMNU","", 1, 0, 30);//dCBPowerL
+	RooRealVar n2_mMuMNU("n2_mMuMNU","", 1, 0, 30);//dCBPowerR
+	RooRealVar alpha1_mMuMNU("alpha1_mMuMNU","", 3, 0, 10);//dCBCutL
 	RooRealVar alpha2_mMuMNU("alpha2_mMuMNU","", 3, 0, 10);//dCBCutR
+
+
 
 	////////////////////////////////////////////////////////////////////////
 	// customized params
@@ -646,9 +656,9 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	RooCBShape dcball_mHZ("dcball_signal_mHZ", "dcball_mHZ", mHZ, mean_mHZ,sigma_mHZ,alpha1_mHZ,n1_mHZ);
 
 	// mMuMNU - DCB
-	// RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
+	RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
 	// mMuMNU - CB
-	RooCBShape dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU);
+	// RooCBShape dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU);
 	// mMuMNU - Gaussian
 	// RooGaussian dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU);
 	
