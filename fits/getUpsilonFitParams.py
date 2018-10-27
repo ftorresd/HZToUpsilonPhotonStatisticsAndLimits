@@ -199,11 +199,11 @@ if __name__ == "__main__":
 	os.system("rm -rf fitPlotFiles2D/UpsilonControlSample")
 
 	# get fits
-	getFits("H", "Cat0")
+	# getFits("H", "Cat0")
 	getFits("Z", "Cat0")
-	getFits("Z", "Cat1")
-	getFits("Z", "Cat2")
-	getFits("Z", "Cat3")
+	# getFits("Z", "Cat1")
+	# getFits("Z", "Cat2")
+	# getFits("Z", "Cat3")
 
 	# write output
 	with open('fitPlotFiles2D/UpsilonControlSample/upsilonFitParams.json', 'w') as upsilonFitParamsFile:  

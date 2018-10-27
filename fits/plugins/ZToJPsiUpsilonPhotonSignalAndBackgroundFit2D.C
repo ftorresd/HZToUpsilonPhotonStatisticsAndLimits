@@ -635,7 +635,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
 
 	// RooGaussian dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU);
-	// oi
+	
 	RooProdPdf OniaSigZSig  ("OniaSigZSig",   "OniaSigZSig  ", RooArgSet(dcball_mMuMNU, dcball_mHZ));  
 
 

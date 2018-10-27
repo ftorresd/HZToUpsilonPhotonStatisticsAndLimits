@@ -365,7 +365,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	// cb_fraction_mHZ.setVal(1);
 	// cb_fraction_mHZ.setConstant(true);
 
-	// Z signal model
+	// H signal model
 	RooCBShape signal_cb_Signal("signal_cb_Signal", "Crystal Ball Signal component", mHZ, mean_Higgs_mHZ, sigma_cb_mHZ, alpha_cb_mHZ, n_mHZ);
 	RooGaussian signal_gauss_Signal("signal_gauss_Signal","Gaussian Signal component", mHZ, mean_Higgs_mHZ, sigma_gauss_mHZ) ;
 	// add gaussian to CB
@@ -487,9 +487,9 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 		if (analysisBranch == "Upsilon")  {
 			system("mkdir -p  fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit");
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".root").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".png").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".pdf").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".root").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".png").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".pdf").c_str());
 		}
 
 	if (!doShapeSyst) {
@@ -606,11 +606,19 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	////////////////////////////////////////////////////////////////////////////////////
 	// PEAKING BACKGROUND
 	RooRealVar mean_cbPeakingBackground("mean_cbPeakingBackground", "Mean" , 125, 100, 150) ;
-	RooRealVar sigma_cbPeakingBackground("sigma_cbPeakingBackground", "Width" ,  2., 0.5, 4.) ;
-	RooRealVar alphaPeakingBackground("alphaPeakingBackground","", 3., 0.1, 50.);
-	RooRealVar nPeakingBackground("nPeakingBackground","", 0.5, 0.1, 50.);
+	RooRealVar sigma_cbPeakingBackground("sigma_cbPeakingBackground", "Width" ,  1., 0., 1.5) ;
+	RooRealVar alphaPeakingBackground("alphaPeakingBackground","", 3., 5, 10);
+	RooRealVar nPeakingBackground("nPeakingBackground","", 0.5, 3, 10.);
 
 	RooCBShape PeakingBackground_cb("PeakingBackground_cb", "Crystal Ball Peaking Background component", mHZ, mean_cbPeakingBackground, sigma_cbPeakingBackground, alphaPeakingBackground, nPeakingBackground);
+
+	// // H - PEAKING BACKGROUND - CB + Gauss
+	// RooCBShape PeakingBackground_cb_02("PeakingBackground_cb_02", "Crystal Ball Signal component", mHZ, mean_cbPeakingBackground, sigma_cbPeakingBackground, alphaPeakingBackground, nPeakingBackground);
+	// RooRealVar sigma_gauss_mHZ_cbPeakingBackground("sigma_gauss_mHZ_cbPeakingBackground", "Width" ,  1., 0.5, 4.) ;
+	// RooGaussian PeakingBackground_gauss("PeakingBackground_gauss","Gaussian Signal component", mHZ, mean_cbPeakingBackground, sigma_gauss_mHZ_cbPeakingBackground) ;
+	// // add gaussian to CB
+	// RooAddPdf PeakingBackground_cb("PeakingBackground_cb", "PeakingBackground_cb", RooArgList(PeakingBackground_cb_02, PeakingBackground_gauss), cb_fraction_mHZ); 
+
 
 
 	// dimuon 
