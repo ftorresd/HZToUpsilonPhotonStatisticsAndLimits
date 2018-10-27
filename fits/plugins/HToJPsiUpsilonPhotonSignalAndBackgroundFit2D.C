@@ -266,7 +266,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		// mean_Higgs_mHZ.setConstant(true);
 
 		sigma_cb_mHZ.setVal(hFitTemp.sigma_cb_mHZ);
-		// sigma_cb_mHZ.setConstant(true);
+		sigma_cb_mHZ.setConstant(true);
 
 		sigma_gauss_mHZ.setVal(hFitTemp.sigma_gauss_mHZ);
 		sigma_gauss_mHZ.setConstant(true);
@@ -426,7 +426,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	hFitTemp.n2_mMuMNU = n2_mMuMNU.getValV();
 
 
-	if (!doShapeSyst) {
+	// if (!doShapeSyst) {
 	  	////////////////////////////////////////////////////////////////////////////////////
 	  	// SIGNAL PLOT
 
@@ -483,15 +483,16 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal->SetTextFont(42);
 		latexSignal->SetTextSize(0.04);
 		latexSignal->SetTextAlign(31);
-		latexSignal->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexSignal->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 		if (analysisBranch == "Upsilon")  {
 			system("mkdir -p  fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit");
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".root").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".png").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".pdf").c_str());
+			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".root").c_str());
+			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".png").c_str());
+			cSignal->SaveAs(("fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit/mHZ_HToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".pdf").c_str());
 		}
 
+	if (!doShapeSyst) {
 	  	// dimuon
 		auto cSignal_mMuMNU = new TCanvas("cSignal_mMuMNU","cSignal_mMuMNU",1050*2.0,750*2.0);
 		gPad->SetLeftMargin(0.17); 
@@ -549,7 +550,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal_mMuMNU->SetTextFont(42);
 		latexSignal_mMuMNU->SetTextSize(0.04);
 		latexSignal_mMuMNU->SetTextAlign(31);
-		latexSignal_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexSignal_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 		if (analysisBranch == "Upsilon")  {
 			system("mkdir -p fitPlotFiles2D/HToUpsilonPhotonSignalAndBackgroundFit");
@@ -696,7 +697,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground->SetTextFont(42);
 		latexPeakingBackground->SetTextSize(0.04);
 		latexPeakingBackground->SetTextAlign(31);
-		latexPeakingBackground->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexPeakingBackground->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 
 		if (analysisBranch == "Upsilon") {
@@ -752,7 +753,7 @@ hFitParams HToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground_mMuMNU->SetTextFont(42);
 		latexPeakingBackground_mMuMNU->SetTextSize(0.04);
 		latexPeakingBackground_mMuMNU->SetTextAlign(31);
-		latexPeakingBackground_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexPeakingBackground_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 
 		if (analysisBranch == "Upsilon") {

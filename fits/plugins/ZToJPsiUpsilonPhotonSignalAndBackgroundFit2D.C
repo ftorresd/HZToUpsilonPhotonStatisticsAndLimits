@@ -141,7 +141,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 	// SIGNAL MODEL
 	// DCBall - Z
 	RooRealVar mean_mHZ(("mean_mHZ_"+selCategory).c_str(), "Mean" ,91.1876,70,120) ;
-	RooRealVar sigma_mHZ(("sigma_mHZ_"+selCategory).c_str(), "Width" ,  2., 0.5, 4.) ;
+	RooRealVar sigma_mHZ(("sigma_mHZ_"+selCategory).c_str(), "Width" ,  2., 0.6, 1.) ;
 	RooRealVar n1_mHZ("n1_mHZ","", 0.5, 0.1, 50.);//dCBPowerL
 	RooRealVar n2_mHZ("n2_mHZ","", 0.5, 0.1, 50.);//dCBPowerR
 	RooRealVar alpha1_mHZ("alpha1_mHZ","", 3., 0.0, 10.);//dCBCutL
@@ -160,348 +160,393 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 	////////////////////////////////////////////////////////////////////////
 	// customized params
-	if (analysisBranch == "Upsilon" && (quarkoniaState == "2S" || quarkoniaState == "3S") && selCategory == "Cat0") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// double sigmaRef = 0.67;
+	// // 1S
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat0" && quarkoniaState == "1S") {
+	// 	sigmaRef = 0.67;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat1" && quarkoniaState == "1S") {
+	// 	sigmaRef = 0.65;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat2" && quarkoniaState == "1S") {
+	// 	sigmaRef = 0.90;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat3" && quarkoniaState == "1S") {
+	// 	sigmaRef = 1.32;
+	// }
+	
+	// // 2S
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat0" && quarkoniaState == "2S") {
+	// 	sigmaRef = 0.77;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat1" && quarkoniaState == "2S") {
+	// 	sigmaRef = 0.71;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat2" && quarkoniaState == "2S") {
+	// 	sigmaRef = 0.88;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat3" && quarkoniaState == "2S") {
+	// 	sigmaRef = 1.38;
+	// }
+
+	// // 3S
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat0" && quarkoniaState == "3S") {
+	// 	sigmaRef = 0.77;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat1" && quarkoniaState == "3S") {
+	// 	sigmaRef = 0.69;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat2" && quarkoniaState == "3S") {
+	// 	sigmaRef = 0.92;
+	// }
+	// if (analysisBranch == "Upsilon" && selCategory == "Cat3" && quarkoniaState == "3S") {
+	// 	sigmaRef = 1.62;
+	// }
+	// sigma_mHZ.setRange(sigmaRef-sigmaRef*0.05, sigmaRef+sigmaRef*0.05);
+	// sigma_mHZ.setVal(sigmaRef);
+
+	// if (analysisBranch == "Upsilon" && (quarkoniaState == "2S" || quarkoniaState == "3S") && selCategory == "Cat0") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(2, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(2, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(2, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(2, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(2, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(2, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(0.0, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(0.0, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat1") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat1") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(5, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(5, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(5, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(5, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(0, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(0, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(1, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(1, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3) ;
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3) ;
 
-	}
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat1") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat1") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(2, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(2, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(2, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(2, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(3, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(3, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(3, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(3, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(1, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(1, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(2, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(2, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat1") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat1") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(2, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(2, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(2, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(2, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(2, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(2, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(0.0, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(0.0, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat2") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat2") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(2, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(2, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(2, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(2, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(3, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(3, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(3, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(3, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(0.0, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(0.0, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat2") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat2") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(0, 5.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(0, 5.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(0, 5.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(0, 5.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		// sigma_mMuMNU.setRange(0., 0.3);
-		// sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	// sigma_mMuMNU.setRange(0., 0.3);
+	// 	// sigma_mMuMNU.setVal(0.1);
 		
-		// n1_mMuMNU.setRange(3, 10.);
-		// n1_mMuMNU.setVal(5);
+	// 	// n1_mMuMNU.setRange(3, 10.);
+	// 	// n1_mMuMNU.setVal(5);
 		
-		// n2_mMuMNU.setRange(3, 10.) ;
-		// n2_mMuMNU.setVal(5) ;
+	// 	// n2_mMuMNU.setRange(3, 10.) ;
+	// 	// n2_mMuMNU.setVal(5) ;
 
-		// alpha1_mMuMNU.setRange(0.0, 5) ;
-		// alpha1_mMuMNU.setVal(3) ;
+	// 	// alpha1_mMuMNU.setRange(0.0, 5) ;
+	// 	// alpha1_mMuMNU.setVal(3) ;
 
-		// alpha2_mMuMNU.setRange(0.0, 10) ;
-		// alpha2_mMuMNU.setVal(3);
-	}
+	// 	// alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	// alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat2") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat2") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(0, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(0, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(3, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(3, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(2, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(2, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(1, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(1, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat3") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "1S" && selCategory == "Cat3") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(0, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(0, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(3, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(3, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(2, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(2, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(1, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(1, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(0.0, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(0.0, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat3") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "2S" && selCategory == "Cat3") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(0, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(0, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(3, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(3, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0.0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0.0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(0, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(0, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(1, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(1, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(1, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(1, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
-	if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat3") {
-		// Z
-		sigma_mHZ.setRange(0.5, 4.);
-		sigma_mHZ.setVal(2.0);
+	// if (analysisBranch == "Upsilon" && quarkoniaState == "3S" && selCategory == "Cat3") {
+	// 	// Z
+	// 	sigma_mHZ.setRange(0.5, 4.);
+	// 	sigma_mHZ.setVal(2.0);
 		
-		n1_mHZ.setRange(1, 10.);
-		n1_mHZ.setVal(5);
+	// 	n1_mHZ.setRange(1, 10.);
+	// 	n1_mHZ.setVal(5);
 		
-		n2_mHZ.setRange(1, 10.) ;
-		n2_mHZ.setVal(5) ;
+	// 	n2_mHZ.setRange(1, 10.) ;
+	// 	n2_mHZ.setVal(5) ;
 
-		alpha1_mHZ.setRange(0.0, 5) ;
-		alpha1_mHZ.setVal(3) ;
+	// 	alpha1_mHZ.setRange(0.0, 5) ;
+	// 	alpha1_mHZ.setVal(3) ;
 
-		alpha2_mHZ.setRange(0, 10) ;
-		alpha2_mHZ.setVal(3) ;
+	// 	alpha2_mHZ.setRange(0, 10) ;
+	// 	alpha2_mHZ.setVal(3) ;
 
-		// dimuon
-		sigma_mMuMNU.setRange(0., 0.3);
-		sigma_mMuMNU.setVal(0.1);
+	// 	// dimuon
+	// 	sigma_mMuMNU.setRange(0., 0.3);
+	// 	sigma_mMuMNU.setVal(0.1);
 		
-		n1_mMuMNU.setRange(2, 10.);
-		n1_mMuMNU.setVal(5);
+	// 	n1_mMuMNU.setRange(2, 10.);
+	// 	n1_mMuMNU.setVal(5);
 		
-		n2_mMuMNU.setRange(2, 10.) ;
-		n2_mMuMNU.setVal(5) ;
+	// 	n2_mMuMNU.setRange(2, 10.) ;
+	// 	n2_mMuMNU.setVal(5) ;
 
-		alpha1_mMuMNU.setRange(2, 5) ;
-		alpha1_mMuMNU.setVal(3) ;
+	// 	alpha1_mMuMNU.setRange(2, 5) ;
+	// 	alpha1_mMuMNU.setVal(3) ;
 
-		alpha2_mMuMNU.setRange(2, 10) ;
-		alpha2_mMuMNU.setVal(3);
-	}
+	// 	alpha2_mMuMNU.setRange(2, 10) ;
+	// 	alpha2_mMuMNU.setVal(3);
+	// }
 
 	// <END> customized params
 	////////////////////////////////////////////////////////////////////////
@@ -588,6 +633,9 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 	RooDoubleCB dcball_mHZ("dcball_signal_mHZ", "dcball_mHZ", mHZ, mean_mHZ,sigma_mHZ,alpha1_mHZ,n1_mHZ,alpha2_mHZ,n2_mHZ);
 	RooDoubleCB dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU,alpha1_mMuMNU,n1_mMuMNU,alpha2_mMuMNU,n2_mMuMNU);
+
+	// RooGaussian dcball_mMuMNU("dcball_signal_mMuMNU", "dcball_mMuMNU", mMuMNU, mean_mMuMNU,sigma_mMuMNU);
+	
 	RooProdPdf OniaSigZSig  ("OniaSigZSig",   "OniaSigZSig  ", RooArgSet(dcball_mMuMNU, dcball_mHZ));  
 
 
@@ -636,7 +684,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 
 	
 
-	if (!doShapeSyst) {
+	// if (!doShapeSyst) {
 	  	////////////////////////////////////////////////////////////////////////////////////
 	  	// SIGNAL PLOT
 		auto cSignal = new TCanvas("c2","c2",1050*2.0,750*2.0);
@@ -683,17 +731,17 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal->SetTextFont(42);
 		latexSignal->SetTextSize(0.04);
 		latexSignal->SetTextAlign(31);
-		latexSignal->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
-
+		// latexSignal->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 		if (analysisBranch == "Upsilon")  {
 			system("mkdir -p  fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/");
-			cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".root").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".png").c_str());
-			cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+".pdf").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".root").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".png").c_str());
+			if (!doShapeSyst) cSignal->SaveAs(("fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilon"+quarkoniaState+"PhotonSignalAndBackgroundFit_Signal_"+selCategory+"_"+shapeSystDirectory+".pdf").c_str());
 		}
 		delete xframeSignal;
 
+	if (!doShapeSyst) {
 		// mMuMNU Plot
 		auto cSignal_mMuMNU = new TCanvas("c2_mMuMNU","c2_mMuMNU",1050*2.0,750*2.0);
 		gPad->SetLeftMargin(0.17); 
@@ -747,7 +795,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexSignal_mMuMNU->SetTextFont(42);
 		latexSignal_mMuMNU->SetTextSize(0.04);
 		latexSignal_mMuMNU->SetTextAlign(31);
-		latexSignal_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexSignal_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 
 		if (analysisBranch == "Upsilon")  {
@@ -916,7 +964,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground->SetTextFont(42);
 		latexPeakingBackground->SetTextSize(0.04);
 		latexPeakingBackground->SetTextAlign(31);
-		latexPeakingBackground->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexPeakingBackground->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 		if (analysisBranch == "Upsilon") {
 			system(("mkdir -p  `dirname fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mHZ_ZToUpsilonPhotonSignalAndBackgroundFit_PeakingBackground.png`"));
@@ -970,7 +1018,7 @@ zFitParams ZToJPsiUpsilonPhotonSignalAndBackgroundFit2D(json * effSigmaJSON, jso
 		latexPeakingBackground_mMuMNU->SetTextFont(42);
 		latexPeakingBackground_mMuMNU->SetTextSize(0.04);
 		latexPeakingBackground_mMuMNU->SetTextAlign(31);
-		latexPeakingBackground_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
+		// latexPeakingBackground_mMuMNU->DrawLatex(0.96, 0.93, "35.86 fb^{-1} (13 TeV, 2016) ");
 
 		if (analysisBranch == "Upsilon") {
 			system(("mkdir -p  `dirname fitPlotFiles2D/ZToUpsilonPhotonSignalAndBackgroundFit/mMuMNU_ZToUpsilonPhotonSignalAndBackgroundFit_PeakingBackground.png`"));

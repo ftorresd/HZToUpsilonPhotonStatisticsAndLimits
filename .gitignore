@@ -30,3 +30,4 @@ inputData_MuonEG_FullIso/
 inputData_MuonEG_FullIso_uncorr/
 ftest/ftestOutput2D/
 inputData_MuonEG_*
+fits/*.log
