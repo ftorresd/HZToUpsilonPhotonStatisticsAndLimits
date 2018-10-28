@@ -48,7 +48,8 @@ def getFits(boson, selCategory):
 	M2S = 10023.26/1000.  # upsilon 2S pgd mass value
 	M3S = 10355.2/1000. # upsilon 3S pgd mass value 
 
-	mean_m = ROOT.RooRealVar("mean_m","#Upsilon mean", M1S, M1S-3, M1S+3, "GeV")
+	# mean_m = ROOT.RooRealVar("mean_m","#Upsilon mean", M1S, M1S-3, M1S+3, "GeV")
+	mean_m = ROOT.RooRealVar("mean_m","#Upsilon mean", M1S)
 	shift21 = ROOT.RooRealVar("shift2", "mass diff #Upsilon(1,2S)" ,M2S-M1S)
 	shift31 = ROOT.RooRealVar("shift3", "mass diff #Upsilon(1,3S)" ,M3S-M1S)
 	mscale = ROOT.RooRealVar("mscale", "mass scale factor", 1.0, -10, 10)

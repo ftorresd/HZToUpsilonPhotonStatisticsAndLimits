@@ -127,9 +127,16 @@ TRandom3 *RandomGen = new TRandom3();
 // WITH PEAKING BCKG INSIDE THE SIGNAL REGION
 
 RooAbsPdf* getPdf(string analysisBranch, string HZToUpsilonPhotonCat_, RooRealVar * obsVarHZ, RooRealVar * obsVarMuMu, PdfModelBuilder &pdfsModel, string type, int order, const char* ext=""){
+  // get fit parameters
   std::ifstream fitParamsFile("inputData/fitPlotFiles2D/fitParameters_MC.json");
   json fitParams;
   fitParamsFile >> fitParams;
+
+  // get fit parameters
+  std::ifstream upsilonFitParamsFile("inputData/fitPlotFiles2D/UpsilonControlSample/upsilonFitParams.json");
+  json upsilonFitParams;
+  upsilonFitParamsFile >> upsilonFitParams;
+
 
   string analysisBoson = analysisBranch.substr(0,1);
 
@@ -155,24 +162,27 @@ RooAbsPdf* getPdf(string analysisBranch, string HZToUpsilonPhotonCat_, RooRealVa
   double M2S = 10023.26/1000.;  //upsilon 2S pgd mass value
   double M3S = 10355.2/1000.; //upsilon 3S pgd mass value 
 
-  RooRealVar * mean_m = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_mean_m").c_str(),"#Upsilon mean",M1S,M1S-0.5,M1S+0.5,"GeV");
-  mean_m->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["signal"]["mean_mMuMNU_"+HZToUpsilonPhotonCat_]);
+  // RooRealVar * mean_m = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_mean_m").c_str(),"#Upsilon mean",M1S,M1S-0.5,M1S+0.5,"GeV");
+  RooRealVar * mean_m = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_mean_m").c_str(),"#Upsilon mean",M1S);
+  // mean_m->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["signal"]["mean_mMuMNU_"+HZToUpsilonPhotonCat_]);
   mean_m->setConstant(kTRUE);
 
   RooRealVar * shift21 = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_shift2").c_str(),"mass diff #Upsilon(1,2S)",M2S-M1S);
   RooRealVar * shift31 = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_shift3").c_str(),"mass diff #Upsilon(1,3S)",M3S-M1S);
 
   RooRealVar * mscale = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_mscale").c_str(),"mass scale factor", 1.0);
+  mscale->setVal(upsilonFitParams["ZToUpsilonPhoton"]["Cat0"]["mscale"]);
   mscale->setConstant(kTRUE);  // the def. parameter value is fixed in the fit 
 
-  RooFormulaVar * mean1S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean1S").c_str(),"@0",RooArgList(*mean_m));
-  RooFormulaVar * mean2S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean2S").c_str(),"@0+@1*@2",RooArgList(*mean_m,*mscale,*shift21));
-  RooFormulaVar * mean3S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean3S").c_str(),"@0+@1*@2",RooArgList(*mean_m,*mscale,*shift31));
+  RooFormulaVar * mean1S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean1S").c_str(),"@0*@1", RooArgList(*mean_m, *mscale));
+  RooFormulaVar * mean2S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean2S").c_str(),"@0*@1+@2", RooArgList(*mean_m,*mscale,*shift21));
+  RooFormulaVar * mean3S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_mean3S").c_str(),"@0*@1+@2", RooArgList(*mean_m,*mscale,*shift31));
 
   // sigma
   // RooRealVar * sigmaUpsilon = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_sigmaUpsilon").c_str(),"sigmaUpsilon",1,0.0,1);
   RooRealVar * sigmaUpsilon = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_sigmaUpsilon").c_str(),"sigmaUpsilon",0.06);
-  sigmaUpsilon->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["signal"]["sigma_mMuMNU_"+HZToUpsilonPhotonCat_]);
+  // sigmaUpsilon->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["signal"]["sigma_mMuMNU_"+HZToUpsilonPhotonCat_]);
+  sigmaUpsilon->setVal(upsilonFitParams["ZToUpsilonPhoton"]["Cat0"]["sigmaUpsilon"]);
   sigmaUpsilon->setConstant(kTRUE);
 
   RooFormulaVar * sigma1S = new RooFormulaVar(((string)(combBckg_mHZ->GetName())+"_sigma1S").c_str(),"@0",RooArgList(*sigmaUpsilon));
@@ -215,8 +225,6 @@ RooAbsPdf* getPdf(string analysisBranch, string HZToUpsilonPhotonCat_, RooRealVa
   RooRealVar * npow1_3S = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_npow1_3S").c_str(),"power order1",2);
   npow1_3S->setVal(fitParams[analysisBoson+"ToUpsilon3SPhoton"][HZToUpsilonPhotonCat_]["signal"]["n1_mMuMNU"]);
   npow1_3S->setConstant(kTRUE);
- 
- 
 
   RooRealVar * npow2_1S = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_npow2_1S").c_str(),"power order2",2);
   npow2_1S->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["signal"]["n2_mMuMNU"]);
@@ -241,21 +249,21 @@ RooAbsPdf* getPdf(string analysisBranch, string HZToUpsilonPhotonCat_, RooRealVa
 
   /// Upsilon 1S
   // RooGaussian gauss1S1("gauss1S1","1S Gaussian_1",obsVarMuMu,mean1S,sigma1);
-  // RooGaussian* bckg1S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg1S").c_str(), "bckg1S",*obsVarMuMu,*mean1S,*sigma1S); 
-  RooDoubleCB* bckg1S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg1S").c_str(), "bckg1S",*obsVarMuMu,*mean1S,*sigma1S,*alpha1_1S,*npow1_1S,*alpha2_1S,*npow2_1S); 
+  RooGaussian* bckg1S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg1S").c_str(), "bckg1S",*obsVarMuMu,*mean1S,*sigma1S); 
+  // RooDoubleCB* bckg1S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg1S").c_str(), "bckg1S",*obsVarMuMu,*mean1S,*sigma1S,*alpha1_1S,*npow1_1S,*alpha2_1S,*npow2_1S); 
   // RooCBShape * bckg1S = new RooCBShape(((string)(combBckg_mHZ->GetName())+"_bckg1S").c_str(), "bckg1S",*obsVarMuMu,*mean1S,*sigma1S,*alpha,*npow); 
   // RooAddPdf sig1S("sig1S","1S mass pdf",RooArgList(gauss1S1,gauss1S2),sigmaFraction);
   /// Upsilon 2S
   // RooGaussian gauss2S1("gauss2S1","2S Gaussian_1",obsVarMuMu,mean2S,sigma1);
-  // RooGaussian * bckg2S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg2S").c_str(), "bckg2S", *obsVarMuMu,*mean2S,*sigma2S); 
-  RooDoubleCB * bckg2S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg2S").c_str(), "bckg2S", *obsVarMuMu,*mean2S,*sigma2S,*alpha1_2S,*npow1_2S,*alpha2_2S,*npow2_2S); 
+  RooGaussian * bckg2S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg2S").c_str(), "bckg2S", *obsVarMuMu,*mean2S,*sigma2S); 
+  // RooDoubleCB * bckg2S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg2S").c_str(), "bckg2S", *obsVarMuMu,*mean2S,*sigma2S,*alpha1_2S,*npow1_2S,*alpha2_2S,*npow2_2S); 
   // RooCBShape * bckg2S = new RooCBShape(((string)(combBckg_mHZ->GetName())+"_bckg2S").c_str(), "bckg2S", *obsVarMuMu,*mean2S,*sigma2S,*alpha,*npow); 
   // RooAddPdf sig2S("sig2S","2S mass pdf",RooArgList(gauss2S1,gauss2S2),sigmaFraction);
 
   /// Upsilon 3S
   // RooGaussian gauss3S1("gauss3S1","3S Gaussian_1",obsVarMuMu,mean3S,sigma1);
-  // RooGaussian * bckg3S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg3S").c_str(),"bckg3S",*obsVarMuMu,*mean3S,*sigma3S);
-  RooDoubleCB * bckg3S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg3S").c_str(),"bckg3S",*obsVarMuMu,*mean3S,*sigma3S,*alpha1_3S,*npow1_3S,*alpha2_3S,*npow2_3S);
+  RooGaussian * bckg3S = new RooGaussian(((string)(combBckg_mHZ->GetName())+"_bckg3S").c_str(),"bckg3S",*obsVarMuMu,*mean3S,*sigma3S);
+  // RooDoubleCB * bckg3S = new RooDoubleCB(((string)(combBckg_mHZ->GetName())+"_bckg3S").c_str(),"bckg3S",*obsVarMuMu,*mean3S,*sigma3S,*alpha1_3S,*npow1_3S,*alpha2_3S,*npow2_3S);
   // RooCBShape * bckg3S = new RooCBShape(((string)(combBckg_mHZ->GetName())+"_bckg3S").c_str(),"bckg3S",*obsVarMuMu,*mean3S,*sigma3S,*alpha,*npow);
   // RooAddPdf sig3S("sig3S","3S mass pdf",RooArgList(gauss3S1,gauss3S2),sigmaFraction);
 
@@ -282,32 +290,31 @@ RooAbsPdf* getPdf(string analysisBranch, string HZToUpsilonPhotonCat_, RooRealVa
   RooRealVar * mean_dcbPeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_Mean").c_str(), "Mean" ,91.1876,70,120) ;
   // RooRealVar * mean_dcbPeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_Mean").c_str(), "Mean" ,91.1876,70,120) ;
   if (analysisBoson == "Z") mean_dcbPeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["mean_mHZ_PeakingBackground"]);
-  // mean_dcbPeakingBackground->setConstant(kTRUE);
+  mean_dcbPeakingBackground->setConstant(kTRUE);
 
   RooRealVar * sigma_dcbPeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_Sigma").c_str(), "Width" ,  2., 0.5, 4.) ;
   // RooRealVar * sigma_dcbPeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_Sigma").c_str(), "Width" ,  2.) ;
   if (analysisBoson == "Z") sigma_dcbPeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["sigma_mHZ_PeakingBackground"]);
-  // sigma_dcbPeakingBackground->setConstant(kTRUE);
+  sigma_dcbPeakingBackground->setConstant(kTRUE);
 
   RooRealVar * n1PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_n1").c_str(),"", 0.5, 0.1, 50.);//dCBPowerL
   // RooRealVar * n1PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_n1").c_str(),"", 0.5);//dCBPowerL
   if (analysisBoson == "Z") n1PeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["n1_mHZ_PeakingBackground"]);
-  // n1PeakingBackground->setConstant(kTRUE);
+  n1PeakingBackground->setConstant(kTRUE);
 
   RooRealVar * n2PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_n2").c_str(),"", 0.5, 0.1, 50.);//dCBPowerR
   // RooRealVar * n2PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_n2").c_str(),"", 0.5);//dCBPowerR
   if (analysisBoson == "Z") n2PeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["n2_mHZ_PeakingBackground"]);
-  // n2PeakingBackground->setConstant(kTRUE);
+  n2PeakingBackground->setConstant(kTRUE);
 
   RooRealVar * alpha1PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_alpha1").c_str(),"", 3., 0.0, 10.);//dCBCutL
   // RooRealVar * alpha1PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_alpha1").c_str(),"", 3.);//dCBCutL
   if (analysisBoson == "Z") alpha1PeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["alpha1_mHZ_PeakingBackground"]);
-  // alpha1PeakingBackground->setConstant(kTRUE);
 
   RooRealVar * alpha2PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_alpha2").c_str(),"", 3., 0.0, 10.);//dCBCutR
   // RooRealVar * alpha2PeakingBackground = new RooRealVar(((string)(combBckg_mHZ->GetName())+"_dcball_alpha2").c_str(),"", 3.);//dCBCutR
   if (analysisBoson == "Z") alpha2PeakingBackground->setVal(fitParams[analysisBoson+"ToUpsilon1SPhoton"][HZToUpsilonPhotonCat_]["peakingBackground"]["alpha2_mHZ_PeakingBackground"]);
-  // alpha2PeakingBackground->setConstant(kTRUE);
+  alpha2PeakingBackground->setConstant(kTRUE);
 
   RooDoubleCB * dcball_PeakingBackground = new RooDoubleCB(
     // "dcballPeakingBackground",  
